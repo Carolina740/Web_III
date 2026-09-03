@@ -1,0 +1,113 @@
+@page "{id:int}"
+@model WebApplication2.Pages.Veterinarios.DetailsModel
+@{
+    ViewData["Title"] = "Detalle del Veterinario";
+    var v = Model.Veterinario!;
+}
+
+<nav aria-label="breadcrumb" class="breadcrumb-vet">
+    <ol class="breadcrumb mb-0">
+        <li class="breadcrumb-item"><a asp-page="/Index"><i class="bi bi-house"></i></a></li>
+        <li class="breadcrumb-item"><a asp-page="Index">Veterinarios</a></li>
+        <li class="breadcrumb-item active">@v.NombreCompleto</li>
+    </ol>
+</nav>
+
+<div class="page-header">
+    <h1><i class="bi bi-person-badge-fill me-2 text-vet-green"></i>@v.NombreCompleto</h1>
+    <div class="d-flex gap-2">
+        <a asp-page="Edit" asp-route-id="@v.Id" class="btn btn-outline-warning">
+            <i class="bi bi-pencil me-1"></i>Editar
+        </a>
+        <a asp-page="Index" class="btn btn-outline-secondary">
+            <i class="bi bi-arrow-left me-1"></i>Volver
+        </a>
+    </div>
+</div>
+
+<div class="row g-4">
+    <!-- Tarjeta del veterinario -->
+    <div class="col-lg-4">
+        <div class="card h-100">
+            <div class="card-body text-center p-4">
+                <!-- Avatar grande -->
+                <div class="vet-avatar-lg mx-auto mb-3">
+                    @v.Nombre[0]@v.Apellido[0]
+                </div>
+                <h5 class="fw-bold mb-1">@v.NombreCompleto</h5>
+                <p class="text-muted mb-2">
+                    <i class="bi bi-award me-1 text-vet-teal"></i>@v.Especialidad
+                </p>
+                <span class="badge-estado @(v.Estado == EstadoGeneral.Activo ? "badge-activo" : "badge-inactivo")">
+                    @v.Estado
+                </span>
+
+                <hr class="divider-vet mt-3" />
+
+                <dl class="text-start row mb-0">
+                    <dt class="col-5 text-muted small">Teléfono</dt>
+                    <dd class="col-7">
+                        <a href="tel:@v.Telefono" class="text-vet-green text-decoration-none">
+                            <i class="bi bi-telephone me-1"></i>@v.Telefono
+                        </a>
+                    </dd>
+                    <dt class="col-5 text-muted small">Citas pendientes</dt>
+                    <dd class="col-7">
+                        <span class="badge bg-warning text-dark">@Model.CitasPendientes.Count</span>
+                    </dd>
+                    <dt class="col-5 text-muted small">Total citas</dt>
+                    <dd class="col-7">
+                        <span class="badge bg-secondary">@Model.TodasLasCitas.Count</span>
+                    </dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+
+    <!-- Historial de citas -->
+    <div class="col-lg-8">
+        <div class="card h-100">
+            <div class="card-header card-header-vet">
+                <i class="bi bi-calendar2-week me-2"></i>Agenda de Citas
+            </div>
+
+            <!-- Tabs Pendientes / Todas -->
+            <div class="card-body p-0">
+                <ul class="nav nav-tabs px-3 pt-2" id="citasTabs">
+                    <li class="nav-item">
+                        <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#pendientes">
+                            Pendientes
+                            <span class="badge bg-warning text-dark ms-1">@Model.CitasPendientes.Count</span>
+                        </button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#todas">
+                            Todas
+                            <span class="badge bg-secondary ms-1">@Model.TodasLasCitas.Count</span>
+                        </button>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <!-- Pendientes -->
+                    <div class="tab-pane fade show active" id="pendientes">
+                        @await Html.PartialAsync("_CitasTabla", Model.CitasPendientes)
+                    </div>
+                    <!-- Todas -->
+                    <div class="tab-pane fade" id="todas">
+                        @await Html.PartialAsync("_CitasTabla", Model.TodasLasCitas)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .vet-avatar-lg {
+        width: 80px; height: 80px; border-radius: 50%;
+        background: linear-gradient(135deg, var(--vet-green), var(--vet-teal));
+        color: #fff; font-weight: 700; font-size: 1.8rem;
+        display: flex; align-items: center; justify-content: center;
+        text-transform: uppercase;
+    }
+</style>

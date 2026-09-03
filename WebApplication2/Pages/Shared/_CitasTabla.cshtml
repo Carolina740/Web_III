@@ -1,0 +1,50 @@
+@model List<WebApplication2.Models.Cita>
+@using WebApplication2.Models
+
+@if (Model != null && Model.Any())
+{
+    <div class="table-responsive">
+        <table class="table table-vet table-hover mb-0">
+            <thead>
+                <tr>
+                    <th>Fecha</th>
+                    <th>Mascota</th>
+                    <th>Motivo</th>
+                    <th class="text-center">Estado</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var c in Model)
+                {
+                    <tr>
+                        <td class="small">@c.FechaHoraFormateada</td>
+                        <td class="small fw-semibold">@c.Mascota?.Nombre</td>
+                        <td class="small">@c.Motivo</td>
+                        <td class="text-center">
+                            <span class="badge-estado
+                                @(c.Estado == EstadoCita.Pendiente   ? "badge-pendiente"  :
+                                  c.Estado == EstadoCita.Completada  ? "badge-completada" :
+                                                                       "badge-cancelada")">
+                                @c.Estado
+                            </span>
+                        </td>
+                        <td>
+                            <a asp-page="/Citas/Details" asp-route-id="@c.Id"
+                               class="btn btn-sm btn-outline-info">
+                                <i class="bi bi-eye"></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+else
+{
+    <div class="empty-state py-4">
+        <div class="empty-icon">📋</div>
+        <p class="text-muted mb-0">No hay citas en esta categoría.</p>
+    </div>
+}
