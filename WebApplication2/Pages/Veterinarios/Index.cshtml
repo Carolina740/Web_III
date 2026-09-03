@@ -1,4 +1,4 @@
-@page
+﻿@page
 @model WebApplication2.Pages.Veterinarios.IndexModel
 @{
     ViewData["Title"] = "Veterinarios";
@@ -47,7 +47,7 @@
 <div class="card">
     <div class="card-header card-header-vet d-flex align-items-center justify-content-between">
         <span><i class="bi bi-list-ul me-2"></i>Personal Médico</span>
-        <span class="badge bg-white text-success fw-semibold">@Model.Veterinarios.Count registros</span>
+        <span class="badge bg-white text-primary fw-semibold">@Model.Veterinarios.Count registros</span>
     </div>
     <div class="card-body p-0">
         @if (Model.Veterinarios.Any())
@@ -81,7 +81,7 @@
                                     </div>
                                 </td>
                                 <td>
-                                    <span class="badge bg-vet-light text-vet-green border border-success-subtle">
+                                    <span class="badge bg-vet-light text-vet-blue border border-primary-subtle">
                                         <i class="bi bi-award me-1"></i>@v.Especialidad
                                     </span>
                                 </td>
@@ -135,7 +135,7 @@
 <style>
     .vet-avatar {
         width: 36px; height: 36px; border-radius: 50%;
-        background: linear-gradient(135deg, var(--vet-green), var(--vet-teal));
+        background: linear-gradient(135deg, var(--vet-blue), var(--vet-cyan));
         color: #fff; font-weight: 700; font-size: .8rem;
         display: flex; align-items: center; justify-content: center;
         flex-shrink: 0; text-transform: uppercase;

@@ -16,13 +16,13 @@
         <div>
             <h2 class="mb-0 fw-bold text-white">Bienvenido al Sistema de Gestión</h2>
             <p class="mb-0 text-white-75">
-                <strong>El Arca de Noé</strong> – Clínica Veterinaria &nbsp;|&nbsp;
+                <strong>El Arca de Moe</strong> – Clínica Veterinaria &nbsp;|&nbsp;
                 <i class="bi bi-calendar3 me-1"></i>
                 @DateTime.Now.ToString("dddd dd 'de' MMMM 'de' yyyy", new System.Globalization.CultureInfo("es-CO"))
             </p>
         </div>
         <div class="ms-auto">
-            <a asp-page="/Citas/Create" class="btn btn-light fw-semibold" style="color:var(--vet-green-dark);">
+            <a asp-page="/Citas/Create" class="btn btn-light fw-semibold" style="color:var(--vet-blue-dark);">
                 <i class="bi bi-plus-circle me-1"></i>Nueva Cita
             </a>
         </div>
@@ -37,7 +37,7 @@
             <div>
                 <div class="stat-value">@s.TotalPropietarios</div>
                 <div class="stat-label">Propietarios</div>
-                <div class="small text-success fw-semibold">@s.PropietariosActivos activos</div>
+                <div class="small text-primary fw-semibold">@s.PropietariosActivos activos</div>
             </div>
         </a>
     </div>
@@ -47,7 +47,7 @@
             <div>
                 <div class="stat-value">@s.TotalMascotas</div>
                 <div class="stat-label">Mascotas</div>
-                <div class="small fw-semibold" style="color:#00695c;">@s.MascotasActivas activas</div>
+                <div class="small fw-semibold" style="color:#01579b;">@s.MascotasActivas activas</div>
             </div>
         </a>
     </div>
@@ -82,7 +82,7 @@
         <div class="card h-100">
             <div class="card-header card-header-vet d-flex justify-content-between align-items-center">
                 <span><i class="bi bi-calendar2-week me-2"></i>Próximas Citas</span>
-                <a asp-page="/Citas/Index" class="btn btn-sm btn-light text-success fw-semibold">Ver todas</a>
+                <a asp-page="/Citas/Index" class="btn btn-sm btn-light text-primary fw-semibold">Ver todas</a>
             </div>
             <div class="card-body p-0">
                 @if (s.ProximasCitas.Any())
@@ -218,7 +218,7 @@
         <div class="card">
             <div class="card-header card-header-vet d-flex justify-content-between align-items-center">
                 <span><i class="bi bi-people me-2"></i>Propietarios Activos</span>
-                <a asp-page="/Propietarios/Index" class="btn btn-sm btn-light text-success fw-semibold">Ver todos</a>
+                <a asp-page="/Propietarios/Index" class="btn btn-sm btn-light text-primary fw-semibold">Ver todos</a>
             </div>
             <div class="card-body p-0">
                 <div class="table-responsive">
@@ -262,7 +262,7 @@
         <div class="card">
             <div class="card-header card-header-vet d-flex justify-content-between align-items-center">
                 <span><i class="bi bi-heart me-2"></i>Mascotas Activas</span>
-                <a asp-page="/Mascotas/Index" class="btn btn-sm btn-light text-success fw-semibold">Ver todas</a>
+                <a asp-page="/Mascotas/Index" class="btn btn-sm btn-light text-primary fw-semibold">Ver todas</a>
             </div>
             <div class="card-body">
                 @if (Model.MascotasActivas.Any())
@@ -295,10 +295,10 @@
 
 <style>
     .hero-banner {
-        background: linear-gradient(135deg, var(--vet-green-dark) 0%, var(--vet-green) 55%, var(--vet-teal) 100%);
+        background: linear-gradient(135deg, var(--vet-blue-dark) 0%, var(--vet-blue) 55%, var(--vet-cyan) 100%);
         border-radius: 16px;
         padding: 1.5rem 2rem;
-        box-shadow: 0 4px 18px rgba(46,125,50,.3);
+        box-shadow: 0 4px 18px rgba(21,101,192,.3);
     }
     .hero-icon { font-size: 3rem; filter: drop-shadow(0 2px 4px rgba(0,0,0,.3)); }
     .text-white-75 { color: rgba(255,255,255,.82); }
@@ -307,8 +307,8 @@
         display: inline-flex;
         align-items: center;
         gap: .4rem;
-        background: var(--vet-green-light);
-        border: 1px solid rgba(46,125,50,.2);
+        background: var(--vet-blue-light);
+        border: 1px solid rgba(21,101,192,.2);
         border-radius: 30px;
         padding: .3rem .9rem;
         font-size: .85rem;
@@ -316,7 +316,7 @@
         transition: background .2s, transform .15s;
     }
     .mascota-chip:hover {
-        background: var(--vet-teal-light);
+        background: var(--vet-cyan-light);
         transform: translateY(-2px);
         color: var(--vet-text);
     }

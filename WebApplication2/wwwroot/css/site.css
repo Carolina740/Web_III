@@ -1,15 +1,16 @@
 /* ============================================================
-   EL ARCA DE NOÉ – Veterinaria
+   EL ARCA DE MOE – Veterinaria
    Estilos globales de la aplicación
+   Paleta: Azul marino / Azul acento / Celeste claro
    ============================================================ */
 
 /* ---------- Variables de marca ---------- */
 :root {
-    --vet-green:        #2e7d32;   /* verde bosque principal   */
-    --vet-green-dark:   #1b5e20;   /* verde oscuro hover       */
-    --vet-green-light:  #e8f5e9;   /* verde suave fondo        */
-    --vet-teal:         #00897b;   /* teal acento              */
-    --vet-teal-light:   #e0f2f1;
+    --vet-blue:         #1565c0;   /* azul marino principal    */
+    --vet-blue-dark:    #0d47a1;   /* azul oscuro hover        */
+    --vet-blue-light:   #e3f2fd;   /* azul suave fondo         */
+    --vet-cyan:         #0277bd;   /* azul acento              */
+    --vet-cyan-light:   #e1f5fe;   /* celeste claro fondo      */
     --vet-amber:        #f57c00;   /* ámbar para advertencias  */
     --vet-red:          #c62828;   /* rojo peligro             */
     --vet-gray:         #f5f5f5;
@@ -29,7 +30,7 @@ html {
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f0f4f0;
+    background-color: #f0f4f8;
     color: var(--vet-text);
     margin: 0;
     padding: 0;
@@ -39,7 +40,7 @@ body {
    NAVBAR SUPERIOR
    ============================================================ */
 .navbar-vet {
-    background: linear-gradient(135deg, var(--vet-green-dark) 0%, var(--vet-green) 60%, var(--vet-teal) 100%);
+    background: linear-gradient(135deg, var(--vet-blue-dark) 0%, var(--vet-blue) 60%, var(--vet-cyan) 100%);
     height: var(--navbar-height);
     padding: 0 1.5rem;
     box-shadow: 0 2px 8px rgba(0,0,0,.25);
@@ -114,8 +115,8 @@ body {
 }
 
 .navbar-vet .dropdown-item:hover {
-    background: var(--vet-green-light);
-    color: var(--vet-green-dark);
+    background: var(--vet-blue-light);
+    color: var(--vet-blue-dark);
 }
 
 /* ============================================================
@@ -148,7 +149,7 @@ body {
 }
 
 .card-header-vet {
-    background: linear-gradient(90deg, var(--vet-green) 0%, var(--vet-teal) 100%);
+    background: linear-gradient(90deg, var(--vet-blue) 0%, var(--vet-cyan) 100%);
     color: #fff;
 }
 
@@ -199,34 +200,40 @@ body {
     font-weight: 600;
 }
 
-.stat-green  { background: var(--vet-green-light); }
-.stat-teal   { background: var(--vet-teal-light); }
+/* Stat card: azul principal (reemplaza stat-green) */
+.stat-green  { background: var(--vet-blue-light); }
+/* Stat card: cian acento (reemplaza stat-teal) */
+.stat-teal   { background: var(--vet-cyan-light); }
 .stat-amber  { background: #fff8e1; }
-.stat-blue   { background: #e3f2fd; }
+.stat-blue   { background: #e8eaf6; }
 
-.stat-green  .stat-icon { background: var(--vet-green);  color: #fff; }
-.stat-teal   .stat-icon { background: var(--vet-teal);   color: #fff; }
-.stat-amber  .stat-icon { background: var(--vet-amber);  color: #fff; }
-.stat-blue   .stat-icon { background: #1565c0;           color: #fff; }
+.stat-green  .stat-icon { background: var(--vet-blue);      color: #fff; }
+.stat-teal   .stat-icon { background: var(--vet-cyan);       color: #fff; }
+.stat-amber  .stat-icon { background: var(--vet-amber);      color: #fff; }
+.stat-blue   .stat-icon { background: #3949ab;               color: #fff; }
 
-.stat-green  .stat-value { color: var(--vet-green-dark); }
-.stat-teal   .stat-value { color: #00695c; }
+.stat-green  .stat-value { color: var(--vet-blue-dark); }
+.stat-teal   .stat-value { color: #01579b; }
 .stat-amber  .stat-value { color: #e65100; }
-.stat-blue   .stat-value { color: #0d47a1; }
+.stat-blue   .stat-value { color: #283593; }
 
 /* ============================================================
    TABLAS
    ============================================================ */
 .table-vet thead th {
-    background: var(--vet-green-light);
-    color: var(--vet-green-dark);
+    background: var(--vet-blue-light);
+    color: var(--vet-blue-dark);
     font-weight: 600;
-    border-bottom: 2px solid var(--vet-green);
+    border-bottom: 2px solid var(--vet-blue);
     white-space: nowrap;
 }
 
 .table-vet tbody tr:hover {
-    background-color: rgba(46, 125, 50, .05);
+    background-color: rgba(21, 101, 192, .05);
+}
+
+.table-vet tbody tr:nth-child(even) {
+    background-color: rgba(21, 101, 192, .02);
 }
 
 .table-vet td, .table-vet th {
@@ -237,10 +244,10 @@ body {
 /* ============================================================
    BADGES de estado
    ============================================================ */
-.badge-activo    { background-color: #2e7d32; color: #fff; }
+.badge-activo    { background-color: #1565c0; color: #fff; }
 .badge-inactivo  { background-color: #757575; color: #fff; }
 .badge-pendiente { background-color: #f57c00; color: #fff; }
-.badge-completada{ background-color: #1565c0; color: #fff; }
+.badge-completada{ background-color: #0277bd; color: #fff; }
 .badge-cancelada { background-color: #c62828; color: #fff; }
 
 .badge-estado {
@@ -255,7 +262,7 @@ body {
    BOTONES
    ============================================================ */
 .btn-vet-primary {
-    background: linear-gradient(135deg, var(--vet-green) 0%, var(--vet-teal) 100%);
+    background: linear-gradient(135deg, var(--vet-blue) 0%, var(--vet-cyan) 100%);
     border: none;
     color: #fff;
     font-weight: 600;
@@ -271,8 +278,8 @@ body {
 }
 
 .btn-vet-outline {
-    border: 2px solid var(--vet-green);
-    color: var(--vet-green);
+    border: 2px solid var(--vet-blue);
+    color: var(--vet-blue);
     background: transparent;
     font-weight: 600;
     padding: .4rem 1rem;
@@ -281,7 +288,7 @@ body {
 }
 
 .btn-vet-outline:hover {
-    background: var(--vet-green);
+    background: var(--vet-blue);
     color: #fff;
 }
 
@@ -289,15 +296,32 @@ body {
    FORMULARIOS
    ============================================================ */
 .form-control:focus,
-.form-select:focus {
-    border-color: var(--vet-green);
-    box-shadow: 0 0 0 .2rem rgba(46,125,50,.2);
+.form-select:focus,
+textarea.form-control:focus {
+    border-color: var(--vet-blue);
+    box-shadow: 0 0 0 .2rem rgba(21, 101, 192, .2);
 }
 
 .form-label {
     font-weight: 600;
     color: #424242;
     margin-bottom: .3rem;
+}
+
+/* Input group */
+.input-group-text {
+    background-color: #fff;
+    border-color: #dee2e6;
+}
+.input-group:focus-within .input-group-text {
+    border-color: var(--vet-blue);
+}
+
+/* Labels requeridos */
+.form-label.required::after {
+    content: " *";
+    color: var(--vet-red);
+    font-weight: 700;
 }
 
 /* ============================================================
@@ -309,13 +333,13 @@ body {
     justify-content: space-between;
     margin-bottom: 1.5rem;
     padding-bottom: 1rem;
-    border-bottom: 3px solid var(--vet-green-light);
+    border-bottom: 3px solid var(--vet-blue-light);
 }
 
 .page-header h1 {
     font-size: 1.6rem;
     font-weight: 700;
-    color: var(--vet-green-dark);
+    color: var(--vet-blue-dark);
     margin: 0;
     display: flex;
     align-items: center;
@@ -326,14 +350,14 @@ body {
    BREADCRUMB
    ============================================================ */
 .breadcrumb-vet {
-    background: var(--vet-green-light);
+    background: var(--vet-blue-light);
     border-radius: 8px;
     padding: .5rem 1rem;
     margin-bottom: 1.2rem;
 }
 
 .breadcrumb-vet .breadcrumb-item a {
-    color: var(--vet-green);
+    color: var(--vet-blue);
     text-decoration: none;
     font-weight: 500;
 }
@@ -350,9 +374,9 @@ body {
    ALERTS personalizados
    ============================================================ */
 .alert-vet-success {
-    background: var(--vet-green-light);
-    border-left: 4px solid var(--vet-green);
-    color: var(--vet-green-dark);
+    background: var(--vet-blue-light);
+    border-left: 4px solid var(--vet-blue);
+    color: var(--vet-blue-dark);
     border-radius: 8px;
 }
 
@@ -363,8 +387,13 @@ body {
     border-radius: 8px;
 }
 
+.alert-vet-success .btn-close,
+.alert-vet-danger  .btn-close { opacity: .6; }
+.alert-vet-success .btn-close:hover,
+.alert-vet-danger  .btn-close:hover { opacity: 1; }
+
 /* ============================================================
-   PAGINACIÓN VACÍA / EMPTY STATE
+   EMPTY STATE
    ============================================================ */
 .empty-state {
     text-align: center;
@@ -382,7 +411,7 @@ body {
    FOOTER
    ============================================================ */
 .footer-vet {
-    background: var(--vet-green-dark);
+    background: var(--vet-blue-dark);
     color: rgba(255,255,255,.75);
     text-align: center;
     padding: .9rem 1rem;
@@ -395,16 +424,15 @@ body {
     text-decoration: none;
 }
 
-.footer-vet a:hover {
-    color: #fff;
-}
+.footer-vet a:hover { color: #fff; }
 
 /* ============================================================
    UTILIDADES
    ============================================================ */
-.text-vet-green { color: var(--vet-green) !important; }
-.text-vet-teal  { color: var(--vet-teal)  !important; }
-.bg-vet-light   { background-color: var(--vet-green-light) !important; }
+.text-vet-green { color: var(--vet-blue)      !important; }
+.text-vet-teal  { color: var(--vet-cyan)       !important; }
+.text-vet-blue  { color: var(--vet-blue)       !important; }
+.bg-vet-light   { background-color: var(--vet-blue-light) !important; }
 
 .rounded-vet { border-radius: 12px !important; }
 
@@ -412,63 +440,14 @@ body {
 .divider-vet {
     border: none;
     height: 3px;
-    background: linear-gradient(90deg, var(--vet-green), var(--vet-teal), transparent);
+    background: linear-gradient(90deg, var(--vet-blue), var(--vet-cyan), transparent);
     border-radius: 2px;
     margin: 1.5rem 0;
 }
 
-/* Animación sutil de entrada */
-@keyframes fadeInUp {
-    from { opacity: 0; transform: translateY(12px); }
-    to   { opacity: 1; transform: translateY(0); }
-}
-
-.animate-in {
-    animation: fadeInUp .3s ease forwards;
-}
-
-/* Responsive */
-@media (max-width: 576px) {
-    .main-wrapper { padding: 1rem; }
-    .page-header  { flex-direction: column; align-items: flex-start; gap: .75rem; }
-    .stat-card    { padding: 1rem; }
-    .stat-card .stat-value { font-size: 1.5rem; }
-}
-
 /* ============================================================
-   PULIDO FINAL – Accesibilidad, detalles y print
+   NAV TABS (detalle veterinario)
    ============================================================ */
-
-/* Focus visible mejorado para accesibilidad */
-:focus-visible {
-    outline: 3px solid var(--vet-teal);
-    outline-offset: 2px;
-    border-radius: 4px;
-}
-
-/* Evitar que el outline aparezca con click (solo teclado) */
-:focus:not(:focus-visible) {
-    outline: none;
-}
-
-/* Input focus ya definido, pero aseguramos select también */
-.form-select:focus {
-    border-color: var(--vet-green);
-    box-shadow: 0 0 0 .2rem rgba(46,125,50,.2);
-}
-
-/* Textarea */
-textarea.form-control:focus {
-    border-color: var(--vet-green);
-    box-shadow: 0 0 0 .2rem rgba(46,125,50,.2);
-}
-
-/* ── Tabla striped sutil ─────────────────────── */
-.table-vet tbody tr:nth-child(even) {
-    background-color: rgba(46,125,50,.02);
-}
-
-/* ── Nav tabs en el detalle del veterinario ──── */
 .nav-tabs .nav-link {
     color: var(--vet-text-muted);
     font-weight: 500;
@@ -477,48 +456,41 @@ textarea.form-control:focus {
 }
 
 .nav-tabs .nav-link:hover {
-    color: var(--vet-green);
-    border-bottom-color: var(--vet-green-light);
+    color: var(--vet-blue);
+    border-bottom-color: var(--vet-blue-light);
 }
 
 .nav-tabs .nav-link.active {
-    color: var(--vet-green-dark) !important;
+    color: var(--vet-blue-dark) !important;
     font-weight: 700;
-    border-bottom: 3px solid var(--vet-green) !important;
+    border-bottom: 3px solid var(--vet-blue) !important;
     background: transparent;
 }
 
-/* ── Skeleton / carga ────────────────────────── */
-.skeleton {
-    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
-    background-size: 200% 100%;
-    animation: shimmer 1.5s infinite;
-    border-radius: 6px;
-    display: inline-block;
-}
-@keyframes shimmer {
-    0%   { background-position: 200% 0; }
-    100% { background-position: -200% 0; }
-}
-
-/* ── Tooltip mejorado via Bootstrap ──────────── */
+/* ============================================================
+   TOOLTIP
+   ============================================================ */
 .tooltip-inner {
-    background-color: var(--vet-green-dark);
+    background-color: var(--vet-blue-dark);
     font-size: .8rem;
 }
 
-/* ── Scroll suave en tablas largas ───────────── */
+/* ============================================================
+   SCROLLBAR TABLAS
+   ============================================================ */
 .table-responsive {
     scrollbar-width: thin;
-    scrollbar-color: var(--vet-green-light) transparent;
+    scrollbar-color: var(--vet-blue-light) transparent;
 }
 .table-responsive::-webkit-scrollbar { height: 6px; }
 .table-responsive::-webkit-scrollbar-thumb {
-    background: var(--vet-green-light);
+    background: var(--vet-blue-light);
     border-radius: 3px;
 }
 
-/* ── Botones de acción pequeños ──────────────── */
+/* ============================================================
+   BOTONES DE ACCIÓN PEQUEÑOS
+   ============================================================ */
 .btn-sm.btn-outline-info,
 .btn-sm.btn-outline-warning,
 .btn-sm.btn-outline-danger {
@@ -532,50 +504,60 @@ textarea.form-control:focus {
     transform: translateY(-1px);
 }
 
-/* ── Input group ─────────────────────────────── */
-.input-group-text {
-    background-color: #fff;
-    border-color: #dee2e6;
+/* ============================================================
+   SKELETON / SPINNER
+   ============================================================ */
+.skeleton {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+    border-radius: 6px;
+    display: inline-block;
 }
-.input-group:focus-within .input-group-text {
-    border-color: var(--vet-green);
-}
-
-/* ── Formularios: labels requeridos ──────────── */
-.form-label.required::after {
-    content: " *";
-    color: var(--vet-red);
-    font-weight: 700;
-}
-
-/* ── Alert dismissible ───────────────────────── */
-.alert-vet-success .btn-close,
-.alert-vet-danger  .btn-close {
-    opacity: .6;
-}
-.alert-vet-success .btn-close:hover,
-.alert-vet-danger  .btn-close:hover {
-    opacity: 1;
+@keyframes shimmer {
+    0%   { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
 }
 
-/* ── Spinner de carga (para futura extensión) ── */
 .spinner-vet {
-    width: 2rem;
-    height: 2rem;
-    border: 3px solid var(--vet-green-light);
-    border-top-color: var(--vet-green);
+    width: 2rem; height: 2rem;
+    border: 3px solid var(--vet-blue-light);
+    border-top-color: var(--vet-blue);
     border-radius: 50%;
     animation: spin .7s linear infinite;
 }
 @keyframes spin { to { transform: rotate(360deg); } }
 
-/* ── Selección de texto en colores de marca ──── */
+/* ============================================================
+   ANIMACIÓN DE ENTRADA
+   ============================================================ */
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+.animate-in { animation: fadeInUp .3s ease forwards; }
+
+/* ============================================================
+   ACCESIBILIDAD – FOCUS VISIBLE
+   ============================================================ */
+:focus-visible {
+    outline: 3px solid var(--vet-cyan);
+    outline-offset: 2px;
+    border-radius: 4px;
+}
+:focus:not(:focus-visible) { outline: none; }
+
+/* ============================================================
+   SELECCIÓN DE TEXTO
+   ============================================================ */
 ::selection {
-    background: var(--vet-green-light);
-    color: var(--vet-green-dark);
+    background: var(--vet-blue-light);
+    color: var(--vet-blue-dark);
 }
 
-/* ── Print styles ─────────────────────────────── */
+/* ============================================================
+   PRINT STYLES
+   ============================================================ */
 @media print {
     .navbar-vet,
     .footer-vet,
@@ -600,14 +582,19 @@ textarea.form-control:focus {
     }
 }
 
-/* ── Responsive final ─────────────────────────── */
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
 @media (max-width: 768px) {
     .hero-banner { padding: 1rem 1.2rem; }
     .hero-icon   { font-size: 2rem; }
-
-    /* Ocultar columnas menos importantes en móvil */
     .table-vet .hide-mobile { display: none; }
-
-    /* Formularios full width en móvil */
     .row.g-3 > [class*="col-sm"] { flex: 0 0 100%; max-width: 100%; }
+}
+
+@media (max-width: 576px) {
+    .main-wrapper { padding: 1rem; }
+    .page-header  { flex-direction: column; align-items: flex-start; gap: .75rem; }
+    .stat-card    { padding: 1rem; }
+    .stat-card .stat-value { font-size: 1.5rem; }
 }

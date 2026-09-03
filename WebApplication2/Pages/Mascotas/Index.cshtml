@@ -1,4 +1,4 @@
-@page
+﻿@page
 @model WebApplication2.Pages.Mascotas.IndexModel
 @{
     ViewData["Title"] = "Mascotas";
@@ -60,7 +60,7 @@
 <div class="card">
     <div class="card-header card-header-vet d-flex align-items-center justify-content-between">
         <span><i class="bi bi-list-ul me-2"></i>Lista de Mascotas</span>
-        <span class="badge bg-white text-success fw-semibold">@Model.Mascotas.Count registros</span>
+        <span class="badge bg-white text-primary fw-semibold">@Model.Mascotas.Count registros</span>
     </div>
     <div class="card-body p-0">
         @if (Model.Mascotas.Any())
@@ -95,7 +95,7 @@
                                 <td>
                                     <a asp-page="/Propietarios/Details"
                                        asp-route-id="@m.PropietarioId"
-                                       class="text-vet-green text-decoration-none">
+                                       class="text-vet-blue text-decoration-none">
                                         @m.Propietario?.NombreCompleto
                                     </a>
                                 </td>

@@ -1,4 +1,4 @@
-@page "{id:int}"
+﻿@page "{id:int}"
 @model WebApplication2.Pages.Propietarios.DetailsModel
 @{
     ViewData["Title"] = "Detalle del Propietario";
@@ -41,14 +41,14 @@
 
                     <dt class="col-5 text-muted small">Teléfono</dt>
                     <dd class="col-7">
-                        <a href="tel:@Model.Propietario.Telefono" class="text-vet-green text-decoration-none">
+                        <a href="tel:@Model.Propietario.Telefono" class="text-vet-blue text-decoration-none">
                             <i class="bi bi-telephone me-1"></i>@Model.Propietario.Telefono
                         </a>
                     </dd>
 
                     <dt class="col-5 text-muted small">Correo</dt>
                     <dd class="col-7">
-                        <a href="mailto:@Model.Propietario.Correo" class="text-vet-green text-decoration-none">
+                        <a href="mailto:@Model.Propietario.Correo" class="text-vet-blue text-decoration-none">
                             <i class="bi bi-envelope me-1"></i>@Model.Propietario.Correo
                         </a>
                     </dd>
@@ -70,7 +70,7 @@
             <div class="card-header card-header-vet d-flex justify-content-between align-items-center">
                 <span><i class="bi bi-heart-fill me-2"></i>Sus Mascotas</span>
                 <a asp-page="/Mascotas/Create" asp-route-propietarioId="@Model.Propietario.Id"
-                   class="btn btn-sm btn-light text-success fw-semibold">
+                   class="btn btn-sm btn-light text-primary fw-semibold">
                     <i class="bi bi-plus me-1"></i>Agregar
                 </a>
             </div>

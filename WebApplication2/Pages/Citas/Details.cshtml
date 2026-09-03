@@ -1,4 +1,4 @@
-@page "{id:int}"
+﻿@page "{id:int}"
 @model WebApplication2.Pages.Citas.DetailsModel
 @{
     ViewData["Title"] = "Detalle de la Cita";
@@ -57,7 +57,7 @@
                     <dt class="col-5 text-muted small">Mascota</dt>
                     <dd class="col-7">
                         <a asp-page="/Mascotas/Details" asp-route-id="@c.MascotaId"
-                           class="text-vet-green text-decoration-none fw-semibold">
+                           class="text-vet-blue text-decoration-none fw-semibold">
                             <i class="bi bi-heart me-1"></i>@c.Mascota?.Nombre
                         </a>
                         <div class="text-muted small">@c.Mascota?.Especie – @c.Mascota?.Raza</div>
@@ -66,7 +66,7 @@
                     <dt class="col-5 text-muted small">Propietario</dt>
                     <dd class="col-7">
                         <a asp-page="/Propietarios/Details" asp-route-id="@c.Mascota?.PropietarioId"
-                           class="text-vet-green text-decoration-none">
+                           class="text-vet-blue text-decoration-none">
                             <i class="bi bi-person me-1"></i>@c.Mascota?.Propietario?.NombreCompleto
                         </a>
                     </dd>
@@ -74,7 +74,7 @@
                     <dt class="col-5 text-muted small">Veterinario</dt>
                     <dd class="col-7">
                         <a asp-page="/Veterinarios/Details" asp-route-id="@c.VeterinarioId"
-                           class="text-vet-green text-decoration-none">
+                           class="text-vet-blue text-decoration-none">
                             <i class="bi bi-person-badge me-1"></i>@c.Veterinario?.NombreCompleto
                         </a>
                         <div class="text-muted small">@c.Veterinario?.Especialidad</div>
@@ -113,7 +113,7 @@
                     </p>
                     @if (!string.IsNullOrWhiteSpace(c.Diagnostico))
                     {
-                        <div class="p-3 rounded-3" style="background: var(--vet-teal-light); border-left: 4px solid var(--vet-teal);">
+                        <div class="p-3 rounded-3" style="background: var(--vet-cyan-light); border-left: 4px solid var(--vet-cyan);">
                             @c.Diagnostico
                         </div>
                     }
@@ -139,9 +139,9 @@
 <!-- Acciones rápidas de estado -->
 @if (c.Estado == EstadoCita.Pendiente)
 {
-    <div class="card mt-4 border-0" style="background: var(--vet-green-light);">
+    <div class="card mt-4 border-0" style="background: var(--vet-blue-light);">
         <div class="card-body py-3 d-flex align-items-center gap-3 flex-wrap">
-            <span class="fw-semibold text-vet-green">
+            <span class="fw-semibold text-vet-blue">
                 <i class="bi bi-lightning-charge me-1"></i>Acciones rápidas:
             </span>
             <form method="post" asp-page-handler="CambiarEstado">

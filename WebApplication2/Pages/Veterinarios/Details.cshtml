@@ -1,4 +1,4 @@
-@page "{id:int}"
+﻿@page "{id:int}"
 @model WebApplication2.Pages.Veterinarios.DetailsModel
 @{
     ViewData["Title"] = "Detalle del Veterinario";
@@ -14,7 +14,7 @@
 </nav>
 
 <div class="page-header">
-    <h1><i class="bi bi-person-badge-fill me-2 text-vet-green"></i>@v.NombreCompleto</h1>
+    <h1><i class="bi bi-person-badge-fill me-2 text-vet-blue"></i>@v.NombreCompleto</h1>
     <div class="d-flex gap-2">
         <a asp-page="Edit" asp-route-id="@v.Id" class="btn btn-outline-warning">
             <i class="bi bi-pencil me-1"></i>Editar
@@ -47,7 +47,7 @@
                 <dl class="text-start row mb-0">
                     <dt class="col-5 text-muted small">Teléfono</dt>
                     <dd class="col-7">
-                        <a href="tel:@v.Telefono" class="text-vet-green text-decoration-none">
+                        <a href="tel:@v.Telefono" class="text-vet-blue text-decoration-none">
                             <i class="bi bi-telephone me-1"></i>@v.Telefono
                         </a>
                     </dd>
@@ -105,7 +105,7 @@
 <style>
     .vet-avatar-lg {
         width: 80px; height: 80px; border-radius: 50%;
-        background: linear-gradient(135deg, var(--vet-green), var(--vet-teal));
+        background: linear-gradient(135deg, var(--vet-blue), var(--vet-cyan));
         color: #fff; font-weight: 700; font-size: 1.8rem;
         display: flex; align-items: center; justify-content: center;
         text-transform: uppercase;
