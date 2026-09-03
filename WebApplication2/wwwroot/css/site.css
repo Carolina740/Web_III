@@ -434,3 +434,180 @@ body {
     .stat-card    { padding: 1rem; }
     .stat-card .stat-value { font-size: 1.5rem; }
 }
+
+/* ============================================================
+   PULIDO FINAL – Accesibilidad, detalles y print
+   ============================================================ */
+
+/* Focus visible mejorado para accesibilidad */
+:focus-visible {
+    outline: 3px solid var(--vet-teal);
+    outline-offset: 2px;
+    border-radius: 4px;
+}
+
+/* Evitar que el outline aparezca con click (solo teclado) */
+:focus:not(:focus-visible) {
+    outline: none;
+}
+
+/* Input focus ya definido, pero aseguramos select también */
+.form-select:focus {
+    border-color: var(--vet-green);
+    box-shadow: 0 0 0 .2rem rgba(46,125,50,.2);
+}
+
+/* Textarea */
+textarea.form-control:focus {
+    border-color: var(--vet-green);
+    box-shadow: 0 0 0 .2rem rgba(46,125,50,.2);
+}
+
+/* ── Tabla striped sutil ─────────────────────── */
+.table-vet tbody tr:nth-child(even) {
+    background-color: rgba(46,125,50,.02);
+}
+
+/* ── Nav tabs en el detalle del veterinario ──── */
+.nav-tabs .nav-link {
+    color: var(--vet-text-muted);
+    font-weight: 500;
+    border-bottom: 3px solid transparent;
+    transition: color .2s, border-color .2s;
+}
+
+.nav-tabs .nav-link:hover {
+    color: var(--vet-green);
+    border-bottom-color: var(--vet-green-light);
+}
+
+.nav-tabs .nav-link.active {
+    color: var(--vet-green-dark) !important;
+    font-weight: 700;
+    border-bottom: 3px solid var(--vet-green) !important;
+    background: transparent;
+}
+
+/* ── Skeleton / carga ────────────────────────── */
+.skeleton {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+    border-radius: 6px;
+    display: inline-block;
+}
+@keyframes shimmer {
+    0%   { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+/* ── Tooltip mejorado via Bootstrap ──────────── */
+.tooltip-inner {
+    background-color: var(--vet-green-dark);
+    font-size: .8rem;
+}
+
+/* ── Scroll suave en tablas largas ───────────── */
+.table-responsive {
+    scrollbar-width: thin;
+    scrollbar-color: var(--vet-green-light) transparent;
+}
+.table-responsive::-webkit-scrollbar { height: 6px; }
+.table-responsive::-webkit-scrollbar-thumb {
+    background: var(--vet-green-light);
+    border-radius: 3px;
+}
+
+/* ── Botones de acción pequeños ──────────────── */
+.btn-sm.btn-outline-info,
+.btn-sm.btn-outline-warning,
+.btn-sm.btn-outline-danger {
+    border-radius: 6px;
+    padding: .25rem .5rem;
+    transition: transform .15s;
+}
+.btn-sm.btn-outline-info:hover,
+.btn-sm.btn-outline-warning:hover,
+.btn-sm.btn-outline-danger:hover {
+    transform: translateY(-1px);
+}
+
+/* ── Input group ─────────────────────────────── */
+.input-group-text {
+    background-color: #fff;
+    border-color: #dee2e6;
+}
+.input-group:focus-within .input-group-text {
+    border-color: var(--vet-green);
+}
+
+/* ── Formularios: labels requeridos ──────────── */
+.form-label.required::after {
+    content: " *";
+    color: var(--vet-red);
+    font-weight: 700;
+}
+
+/* ── Alert dismissible ───────────────────────── */
+.alert-vet-success .btn-close,
+.alert-vet-danger  .btn-close {
+    opacity: .6;
+}
+.alert-vet-success .btn-close:hover,
+.alert-vet-danger  .btn-close:hover {
+    opacity: 1;
+}
+
+/* ── Spinner de carga (para futura extensión) ── */
+.spinner-vet {
+    width: 2rem;
+    height: 2rem;
+    border: 3px solid var(--vet-green-light);
+    border-top-color: var(--vet-green);
+    border-radius: 50%;
+    animation: spin .7s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── Selección de texto en colores de marca ──── */
+::selection {
+    background: var(--vet-green-light);
+    color: var(--vet-green-dark);
+}
+
+/* ── Print styles ─────────────────────────────── */
+@media print {
+    .navbar-vet,
+    .footer-vet,
+    .btn,
+    .breadcrumb-vet,
+    .page-header .btn,
+    .page-header .d-flex { display: none !important; }
+
+    body { background: #fff !important; }
+
+    .card {
+        box-shadow: none !important;
+        border: 1px solid #dee2e6 !important;
+    }
+
+    .main-wrapper { margin-top: 0 !important; padding: 0 !important; }
+
+    .badge-estado {
+        border: 1px solid #666 !important;
+        color: #000 !important;
+        background: #fff !important;
+    }
+}
+
+/* ── Responsive final ─────────────────────────── */
+@media (max-width: 768px) {
+    .hero-banner { padding: 1rem 1.2rem; }
+    .hero-icon   { font-size: 2rem; }
+
+    /* Ocultar columnas menos importantes en móvil */
+    .table-vet .hide-mobile { display: none; }
+
+    /* Formularios full width en móvil */
+    .row.g-3 > [class*="col-sm"] { flex: 0 0 100%; max-width: 100%; }
+}

@@ -48,7 +48,7 @@
                         <dd class="col-7">@Model.Propietario?.Estado</dd>
                     </dl>
 
-                    <form method="post">
+                    <form method="post" data-confirm="¿Estás segura de que deseas eliminar a @Model.Propietario?.NombreCompleto? Esta acción no se puede deshacer.">
                         @Html.AntiForgeryToken()
                         <div class="d-flex gap-2 justify-content-end">
                             <a asp-page="Index" class="btn btn-outline-secondary">

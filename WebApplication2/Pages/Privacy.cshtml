@@ -1,0 +1,64 @@
+﻿@page
+@model WebApplication2.Pages.PrivacyModel
+@{
+    ViewData["Title"] = "Política de Privacidad";
+}
+
+<nav aria-label="breadcrumb" class="breadcrumb-vet">
+    <ol class="breadcrumb mb-0">
+        <li class="breadcrumb-item"><a asp-page="/Index"><i class="bi bi-house"></i></a></li>
+        <li class="breadcrumb-item active">Política de Privacidad</li>
+    </ol>
+</nav>
+
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="card">
+            <div class="card-header card-header-vet">
+                <i class="bi bi-shield-check me-2"></i>Política de Privacidad
+            </div>
+            <div class="card-body p-4">
+                <div class="d-flex align-items-center gap-3 mb-4 p-3 rounded-3 bg-vet-light">
+                    <span style="font-size:2.5rem;">🐾</span>
+                    <div>
+                        <h5 class="mb-0 fw-bold text-vet-green">El Arca de Noé – Clínica Veterinaria</h5>
+                        <small class="text-muted">Sistema de Gestión de Citas Veterinarias</small>
+                    </div>
+                </div>
+
+                <h6 class="fw-bold text-vet-green">1. Información que recopilamos</h6>
+                <p class="text-muted">
+                    Este sistema almacena información de propietarios de mascotas (nombre, apellido, teléfono
+                    y correo electrónico), datos de las mascotas y el historial de citas veterinarias.
+                    Toda la información es ingresada voluntariamente por el personal autorizado de la clínica.
+                </p>
+
+                <h6 class="fw-bold text-vet-green">2. Uso de la información</h6>
+                <p class="text-muted">
+                    Los datos recopilados se utilizan exclusivamente para gestionar las citas veterinarias,
+                    llevar el historial médico de los pacientes y facilitar la comunicación con los propietarios.
+                    No se comparte información con terceros.
+                </p>
+
+                <h6 class="fw-bold text-vet-green">3. Almacenamiento</h6>
+                <p class="text-muted">
+                    Actualmente el sistema utiliza almacenamiento en memoria durante la sesión de la aplicación.
+                    La información se mantiene segura dentro del entorno del servidor de la clínica.
+                </p>
+
+                <h6 class="fw-bold text-vet-green">4. Derechos del usuario</h6>
+                <p class="text-muted mb-0">
+                    Los propietarios de mascotas tienen derecho a solicitar la corrección o eliminación de
+                    sus datos personales contactando directamente al personal de la clínica.
+                </p>
+
+                <hr class="divider-vet" />
+
+                <div class="text-muted small text-center">
+                    <i class="bi bi-clock me-1"></i>Última actualización: @DateTime.Now.Year
+                    &nbsp;|&nbsp; El Arca de Noé – Clínica Veterinaria
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
