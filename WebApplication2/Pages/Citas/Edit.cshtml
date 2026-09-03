@@ -1,0 +1,102 @@
+@page "{id:int}"
+@model WebApplication2.Pages.Citas.EditModel
+@{
+    ViewData["Title"] = "Editar Cita";
+}
+
+<nav aria-label="breadcrumb" class="breadcrumb-vet">
+    <ol class="breadcrumb mb-0">
+        <li class="breadcrumb-item"><a asp-page="/Index"><i class="bi bi-house"></i></a></li>
+        <li class="breadcrumb-item"><a asp-page="Index">Citas</a></li>
+        <li class="breadcrumb-item active">Editar</li>
+    </ol>
+</nav>
+
+<div class="page-header">
+    <h1><i class="bi bi-pencil-square me-2"></i>Editar Cita #@Model.Cita?.Id</h1>
+</div>
+
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="card">
+            <div class="card-header card-header-vet">
+                <i class="bi bi-calendar2-check me-2"></i>Modificar Cita
+            </div>
+            <div class="card-body p-4">
+                <form method="post">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" asp-for="Cita.Id" />
+                    <div asp-validation-summary="ModelOnly" class="alert alert-vet-danger mb-3"></div>
+
+                    <div class="row g-3">
+                        <div class="col-sm-6">
+                            <label asp-for="Cita.MascotaId" class="form-label"></label>
+                            <select asp-for="Cita.MascotaId"
+                                    asp-items="Model.MascotasSelectList"
+                                    class="form-select">
+                                <option value="">-- Seleccione mascota --</option>
+                            </select>
+                            <span asp-validation-for="Cita.MascotaId" class="text-danger small"></span>
+                        </div>
+                        <div class="col-sm-6">
+                            <label asp-for="Cita.VeterinarioId" class="form-label"></label>
+                            <select asp-for="Cita.VeterinarioId"
+                                    asp-items="Model.VeterinariosSelectList"
+                                    class="form-select">
+                                <option value="">-- Seleccione veterinario --</option>
+                            </select>
+                            <span asp-validation-for="Cita.VeterinarioId" class="text-danger small"></span>
+                        </div>
+                        <div class="col-sm-6">
+                            <label asp-for="Cita.FechaHora" class="form-label"></label>
+                            <input asp-for="Cita.FechaHora" type="datetime-local" class="form-control" />
+                            <span asp-validation-for="Cita.FechaHora" class="text-danger small"></span>
+                        </div>
+                        <div class="col-sm-6">
+                            <label asp-for="Cita.Estado" class="form-label"></label>
+                            <select asp-for="Cita.Estado"
+                                    asp-items="Html.GetEnumSelectList<EstadoCita>()"
+                                    class="form-select"></select>
+                        </div>
+                        <div class="col-12">
+                            <label asp-for="Cita.Motivo" class="form-label"></label>
+                            <textarea asp-for="Cita.Motivo" class="form-control" rows="2"></textarea>
+                            <span asp-validation-for="Cita.Motivo" class="text-danger small"></span>
+                        </div>
+
+                        <!-- Sección de diagnóstico destacada -->
+                        <div class="col-12">
+                            <div class="p-3 rounded-vet" style="background: var(--vet-teal-light); border-left: 4px solid var(--vet-teal);">
+                                <label asp-for="Cita.Diagnostico" class="form-label text-vet-teal fw-bold">
+                                    <i class="bi bi-clipboard2-pulse me-1"></i>Diagnóstico Médico
+                                </label>
+                                <textarea asp-for="Cita.Diagnostico" class="form-control" rows="4"
+                                          placeholder="Ingrese el diagnóstico tras la consulta…"></textarea>
+                                <span asp-validation-for="Cita.Diagnostico" class="text-danger small"></span>
+                                <div class="form-text">El diagnóstico puede completarse después de atender al paciente.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr class="divider-vet" />
+
+                    <div class="d-flex gap-2 justify-content-end">
+                        <a asp-page="Index" class="btn btn-outline-secondary">
+                            <i class="bi bi-arrow-left me-1"></i>Cancelar
+                        </a>
+                        <a asp-page="Details" asp-route-id="@Model.Cita?.Id" class="btn btn-outline-info">
+                            <i class="bi bi-eye me-1"></i>Ver detalle
+                        </a>
+                        <button type="submit" class="btn btn-vet-primary">
+                            <i class="bi bi-floppy me-1"></i>Guardar Cambios
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,67 @@
+@page "{id:int}"
+@model WebApplication2.Pages.Citas.DeleteModel
+@{
+    ViewData["Title"] = "Eliminar Cita";
+    var c = Model.Cita;
+}
+
+<nav aria-label="breadcrumb" class="breadcrumb-vet">
+    <ol class="breadcrumb mb-0">
+        <li class="breadcrumb-item"><a asp-page="/Index"><i class="bi bi-house"></i></a></li>
+        <li class="breadcrumb-item"><a asp-page="Index">Citas</a></li>
+        <li class="breadcrumb-item active">Eliminar</li>
+    </ol>
+</nav>
+
+<div class="row justify-content-center mt-2">
+    <div class="col-lg-6">
+        <div class="card border-danger">
+            <div class="card-header bg-danger text-white">
+                <i class="bi bi-exclamation-triangle-fill me-2"></i>Confirmar Eliminación
+            </div>
+            <div class="card-body p-4">
+                <div class="text-center mb-4">
+                    <div style="font-size:3.5rem;">⚠️</div>
+                    <h5 class="mt-2">¿Eliminar la cita <strong>#@c?.Id</strong>?</h5>
+                    <p class="text-muted">Esta acción no se puede deshacer.</p>
+                </div>
+
+                <dl class="row mb-4">
+                    <dt class="col-5 text-muted">Mascota</dt>
+                    <dd class="col-7">@c?.Mascota?.Nombre (@c?.Mascota?.Especie)</dd>
+
+                    <dt class="col-5 text-muted">Veterinario</dt>
+                    <dd class="col-7">@c?.Veterinario?.NombreCompleto</dd>
+
+                    <dt class="col-5 text-muted">Fecha y Hora</dt>
+                    <dd class="col-7">@c?.FechaHoraFormateada</dd>
+
+                    <dt class="col-5 text-muted">Motivo</dt>
+                    <dd class="col-7">@c?.Motivo</dd>
+
+                    <dt class="col-5 text-muted">Estado</dt>
+                    <dd class="col-7">
+                        <span class="badge-estado
+                            @(c?.Estado == EstadoCita.Pendiente   ? "badge-pendiente"  :
+                              c?.Estado == EstadoCita.Completada  ? "badge-completada" :
+                                                                    "badge-cancelada")">
+                            @c?.Estado
+                        </span>
+                    </dd>
+                </dl>
+
+                <form method="post">
+                    @Html.AntiForgeryToken()
+                    <div class="d-flex gap-2 justify-content-end">
+                        <a asp-page="Index" class="btn btn-outline-secondary">
+                            <i class="bi bi-arrow-left me-1"></i>Cancelar
+                        </a>
+                        <button type="submit" class="btn btn-danger">
+                            <i class="bi bi-trash-fill me-1"></i>Sí, eliminar
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

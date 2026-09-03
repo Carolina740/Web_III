@@ -1,0 +1,172 @@
+@page
+@model WebApplication2.Pages.Citas.IndexModel
+@{
+    ViewData["Title"] = "Citas";
+}
+
+<div class="page-header">
+    <h1><i class="bi bi-calendar2-check-fill me-2"></i>Citas</h1>
+    <a asp-page="Create" class="btn btn-vet-primary">
+        <i class="bi bi-plus-circle me-1"></i>Nueva Cita
+    </a>
+</div>
+
+<!-- Filtros -->
+<div class="card mb-4">
+    <div class="card-body py-3">
+        <form method="get" class="row g-2 align-items-end">
+            <div class="col-sm-6 col-md-3">
+                <label class="form-label mb-1">Estado</label>
+                <select name="filtroEstado" class="form-select">
+                    <option value="">Todos los estados</option>
+                    <option value="Pendiente"  selected="@(Model.FiltroEstado == "Pendiente"  ? "selected" : null)">⏳ Pendiente</option>
+                    <option value="Completada" selected="@(Model.FiltroEstado == "Completada" ? "selected" : null)">✅ Completada</option>
+                    <option value="Cancelada"  selected="@(Model.FiltroEstado == "Cancelada"  ? "selected" : null)">❌ Cancelada</option>
+                </select>
+            </div>
+            <div class="col-sm-6 col-md-3">
+                <label class="form-label mb-1">Veterinario</label>
+                <select name="filtroVeterinario" class="form-select">
+                    <option value="">Todos</option>
+                    @foreach (var v in Model.Veterinarios)
+                    {
+                        <option value="@v.Id"
+                                selected="@(Model.FiltroVeterinario == v.Id ? "selected" : null)">
+                            @v.NombreCompleto
+                        </option>
+                    }
+                </select>
+            </div>
+            <div class="col-sm-4 col-md-2">
+                <label class="form-label mb-1">Desde</label>
+                <input type="date" name="filtroDesde" value="@Model.FiltroDesde?.ToString("yyyy-MM-dd")"
+                       class="form-control" />
+            </div>
+            <div class="col-sm-4 col-md-2">
+                <label class="form-label mb-1">Hasta</label>
+                <input type="date" name="filtroHasta" value="@Model.FiltroHasta?.ToString("yyyy-MM-dd")"
+                       class="form-control" />
+            </div>
+            <div class="col-auto d-flex gap-2">
+                <button type="submit" class="btn btn-vet-primary">
+                    <i class="bi bi-funnel me-1"></i>Filtrar
+                </button>
+                <a asp-page="Index" class="btn btn-outline-secondary" title="Limpiar filtros">
+                    <i class="bi bi-arrow-counterclockwise"></i>
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Resumen rápido -->
+<div class="row g-3 mb-4">
+    <div class="col-6 col-md-4">
+        <div class="stat-card stat-amber">
+            <div class="stat-icon"><i class="bi bi-hourglass-split"></i></div>
+            <div>
+                <div class="stat-value">@Model.Citas.Count(c => c.Estado == EstadoCita.Pendiente)</div>
+                <div class="stat-label">Pendientes</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-6 col-md-4">
+        <div class="stat-card stat-blue">
+            <div class="stat-icon"><i class="bi bi-check-circle"></i></div>
+            <div>
+                <div class="stat-value">@Model.Citas.Count(c => c.Estado == EstadoCita.Completada)</div>
+                <div class="stat-label">Completadas</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-6 col-md-4">
+        <div class="stat-card stat-green">
+            <div class="stat-icon"><i class="bi bi-calendar2-check"></i></div>
+            <div>
+                <div class="stat-value">@Model.Citas.Count</div>
+                <div class="stat-label">Total filtradas</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Tabla -->
+<div class="card">
+    <div class="card-header card-header-vet d-flex align-items-center justify-content-between">
+        <span><i class="bi bi-list-ul me-2"></i>Lista de Citas</span>
+        <span class="badge bg-white text-success fw-semibold">@Model.Citas.Count registros</span>
+    </div>
+    <div class="card-body p-0">
+        @if (Model.Citas.Any())
+        {
+            <div class="table-responsive">
+                <table class="table table-vet table-hover mb-0">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th><i class="bi bi-heart me-1"></i>Mascota</th>
+                            <th><i class="bi bi-person me-1"></i>Propietario</th>
+                            <th><i class="bi bi-person-badge me-1"></i>Veterinario</th>
+                            <th><i class="bi bi-calendar2 me-1"></i>Fecha y Hora</th>
+                            <th>Motivo</th>
+                            <th class="text-center">Estado</th>
+                            <th class="text-center">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var c in Model.Citas)
+                        {
+                            <tr class="@(c.Estado == EstadoCita.Cancelada ? "table-secondary" : "")">
+                                <td class="text-muted small">@c.Id</td>
+                                <td class="fw-semibold">@c.Mascota?.Nombre</td>
+                                <td class="small text-muted">@c.Mascota?.Propietario?.NombreCompleto</td>
+                                <td class="small">@c.Veterinario?.Apellido</td>
+                                <td>
+                                    <div class="fw-semibold small">@c.FechaHora.ToString("dd/MM/yyyy")</div>
+                                    <div class="text-muted small">@c.FechaHora.ToString("HH:mm")</div>
+                                </td>
+                                <td class="small" style="max-width:180px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;"
+                                    title="@c.Motivo">@c.Motivo</td>
+                                <td class="text-center">
+                                    <span class="badge-estado
+                                        @(c.Estado == EstadoCita.Pendiente   ? "badge-pendiente"  :
+                                          c.Estado == EstadoCita.Completada  ? "badge-completada" :
+                                                                               "badge-cancelada")">
+                                        @c.Estado
+                                    </span>
+                                </td>
+                                <td class="text-center">
+                                    <div class="d-flex gap-1 justify-content-center">
+                                        <a asp-page="Details" asp-route-id="@c.Id"
+                                           class="btn btn-sm btn-outline-info" title="Ver detalle">
+                                            <i class="bi bi-eye"></i>
+                                        </a>
+                                        <a asp-page="Edit" asp-route-id="@c.Id"
+                                           class="btn btn-sm btn-outline-warning" title="Editar">
+                                            <i class="bi bi-pencil"></i>
+                                        </a>
+                                        <a asp-page="Delete" asp-route-id="@c.Id"
+                                           class="btn btn-sm btn-outline-danger" title="Eliminar">
+                                            <i class="bi bi-trash"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+        else
+        {
+            <div class="empty-state">
+                <div class="empty-icon">📅</div>
+                <h5 class="text-muted">No se encontraron citas</h5>
+                <p class="text-muted mb-3">Prueba cambiando los filtros o agenda una nueva cita.</p>
+                <a asp-page="Create" class="btn btn-vet-primary">
+                    <i class="bi bi-plus-circle me-1"></i>Agendar Cita
+                </a>
+            </div>
+        }
+    </div>
+</div>
