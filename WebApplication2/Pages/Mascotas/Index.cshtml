@@ -1,0 +1,167 @@
+@page
+@model WebApplication2.Pages.Mascotas.IndexModel
+@{
+    ViewData["Title"] = "Mascotas";
+}
+
+<div class="page-header">
+    <h1><i class="bi bi-heart-fill me-2"></i>Mascotas</h1>
+    <a asp-page="Create" class="btn btn-vet-primary">
+        <i class="bi bi-plus-circle me-1"></i>Nueva Mascota
+    </a>
+</div>
+
+<!-- Filtros -->
+<div class="card mb-4">
+    <div class="card-body py-3">
+        <form method="get" class="row g-2 align-items-end">
+            <div class="col-sm-6 col-md-4">
+                <label class="form-label mb-1">Buscar</label>
+                <div class="input-group">
+                    <span class="input-group-text bg-white"><i class="bi bi-search text-muted"></i></span>
+                    <input type="text" name="busqueda" value="@Model.Busqueda"
+                           class="form-control" placeholder="Nombre, especie o raza…" />
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-3">
+                <label class="form-label mb-1">Propietario</label>
+                <select name="filtroPropietario" class="form-select">
+                    <option value="">Todos</option>
+                    @foreach (var p in Model.Propietarios)
+                    {
+                        <option value="@p.Id"
+                                selected="@(Model.FiltroPropietario == p.Id ? "selected" : null)">
+                            @p.NombreCompleto
+                        </option>
+                    }
+                </select>
+            </div>
+            <div class="col-sm-4 col-md-2">
+                <label class="form-label mb-1">Estado</label>
+                <select name="filtroEstado" class="form-select">
+                    <option value="">Todos</option>
+                    <option value="Activo"   selected="@(Model.FiltroEstado == "Activo"   ? "selected" : null)">Activo</option>
+                    <option value="Inactivo" selected="@(Model.FiltroEstado == "Inactivo" ? "selected" : null)">Inactivo</option>
+                </select>
+            </div>
+            <div class="col-auto d-flex gap-2">
+                <button type="submit" class="btn btn-vet-primary">
+                    <i class="bi bi-funnel me-1"></i>Filtrar
+                </button>
+                <a asp-page="Index" class="btn btn-outline-secondary" title="Limpiar filtros">
+                    <i class="bi bi-arrow-counterclockwise"></i>
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Tabla -->
+<div class="card">
+    <div class="card-header card-header-vet d-flex align-items-center justify-content-between">
+        <span><i class="bi bi-list-ul me-2"></i>Lista de Mascotas</span>
+        <span class="badge bg-white text-success fw-semibold">@Model.Mascotas.Count registros</span>
+    </div>
+    <div class="card-body p-0">
+        @if (Model.Mascotas.Any())
+        {
+            <div class="table-responsive">
+                <table class="table table-vet table-hover mb-0">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th><i class="bi bi-heart me-1"></i>Nombre</th>
+                            <th><i class="bi bi-person me-1"></i>Propietario</th>
+                            <th>Especie</th>
+                            <th>Raza</th>
+                            <th>Color</th>
+                            <th class="text-center">Edad</th>
+                            <th class="text-center">Estado</th>
+                            <th class="text-center">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var m in Model.Mascotas)
+                        {
+                            <tr>
+                                <td class="text-muted small">@m.Id</td>
+                                <td class="fw-semibold">
+                                    @m.Nombre
+                                    @if (m.Especie.ToLower() == "perro")   { <span title="Perro">🐶</span> }
+                                    else if (m.Especie.ToLower() == "gato") { <span title="Gato">🐱</span> }
+                                    else if (m.Especie.ToLower() == "ave")  { <span title="Ave">🐦</span> }
+                                    else                                    { <span title="@m.Especie">🐾</span> }
+                                </td>
+                                <td>
+                                    <a asp-page="/Propietarios/Details"
+                                       asp-route-id="@m.PropietarioId"
+                                       class="text-vet-green text-decoration-none">
+                                        @m.Propietario?.NombreCompleto
+                                    </a>
+                                </td>
+                                <td>@m.Especie</td>
+                                <td>@m.Raza</td>
+                                <td>
+                                    <span class="d-flex align-items-center gap-1">
+                                        <span style="width:14px;height:14px;border-radius:50%;background:@ColorToHex(m.Color);border:1px solid #ccc;display:inline-block;"></span>
+                                        @m.Color
+                                    </span>
+                                </td>
+                                <td class="text-center">@m.Edad años</td>
+                                <td class="text-center">
+                                    <span class="badge-estado @(m.Estado == EstadoGeneral.Activo ? "badge-activo" : "badge-inactivo")">
+                                        @m.Estado
+                                    </span>
+                                </td>
+                                <td class="text-center">
+                                    <div class="d-flex gap-1 justify-content-center">
+                                        <a asp-page="Details" asp-route-id="@m.Id"
+                                           class="btn btn-sm btn-outline-info" title="Ver detalle">
+                                            <i class="bi bi-eye"></i>
+                                        </a>
+                                        <a asp-page="Edit" asp-route-id="@m.Id"
+                                           class="btn btn-sm btn-outline-warning" title="Editar">
+                                            <i class="bi bi-pencil"></i>
+                                        </a>
+                                        <a asp-page="Delete" asp-route-id="@m.Id"
+                                           class="btn btn-sm btn-outline-danger" title="Eliminar">
+                                            <i class="bi bi-trash"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+        else
+        {
+            <div class="empty-state">
+                <div class="empty-icon">🐾</div>
+                <h5 class="text-muted">No se encontraron mascotas</h5>
+                <p class="text-muted mb-3">Prueba cambiando los filtros o registra una nueva.</p>
+                <a asp-page="Create" class="btn btn-vet-primary">
+                    <i class="bi bi-plus-circle me-1"></i>Agregar Mascota
+                </a>
+            </div>
+        }
+    </div>
+</div>
+
+@functions {
+    // Mapeo básico de nombre de color a hex para el indicador visual
+    private static string ColorToHex(string color) => color.ToLower() switch
+    {
+        "negro"     => "#212121",
+        "blanco"    => "#f5f5f5",
+        "gris"      => "#9e9e9e",
+        "marrón" or "cafe" or "café" => "#795548",
+        "amarillo"  => "#fdd835",
+        "naranja"   => "#ff6d00",
+        "rojo"      => "#e53935",
+        "atigrado"  => "#8d6e63",
+        "manchado"  => "#bdbdbd",
+        _           => "#a5d6a7"
+    };
+}
