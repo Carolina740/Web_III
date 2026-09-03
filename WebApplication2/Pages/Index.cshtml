@@ -1,0 +1,323 @@
+﻿@page
+@model WebApplication2.Pages.IndexModel
+@{
+    ViewData["Title"] = "Dashboard";
+    var s = Model.Stats;
+    int total = s.CitasPendientes + s.CitasCompletadas + s.CitasCanceladas;
+    int pctPend = total > 0 ? (int)(s.CitasPendientes  * 100.0 / total) : 0;
+    int pctComp = total > 0 ? (int)(s.CitasCompletadas * 100.0 / total) : 0;
+    int pctCanc = total > 0 ? (int)(s.CitasCanceladas  * 100.0 / total) : 0;
+}
+
+<!-- ═══ HERO BANNER ═══════════════════════════════════════════════ -->
+<div class="hero-banner mb-4">
+    <div class="d-flex align-items-center gap-3 flex-wrap">
+        <div class="hero-icon">🐾</div>
+        <div>
+            <h2 class="mb-0 fw-bold text-white">Bienvenido al Sistema de Gestión</h2>
+            <p class="mb-0 text-white-75">
+                <strong>El Arca de Noé</strong> – Clínica Veterinaria &nbsp;|&nbsp;
+                <i class="bi bi-calendar3 me-1"></i>
+                @DateTime.Now.ToString("dddd dd 'de' MMMM 'de' yyyy", new System.Globalization.CultureInfo("es-CO"))
+            </p>
+        </div>
+        <div class="ms-auto">
+            <a asp-page="/Citas/Create" class="btn btn-light fw-semibold" style="color:var(--vet-green-dark);">
+                <i class="bi bi-plus-circle me-1"></i>Nueva Cita
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- ═══ STAT CARDS ════════════════════════════════════════════════ -->
+<div class="row g-3 mb-4">
+    <div class="col-6 col-md-3">
+        <a asp-page="/Propietarios/Index" class="stat-card stat-green text-decoration-none d-flex">
+            <div class="stat-icon"><i class="bi bi-people-fill"></i></div>
+            <div>
+                <div class="stat-value">@s.TotalPropietarios</div>
+                <div class="stat-label">Propietarios</div>
+                <div class="small text-success fw-semibold">@s.PropietariosActivos activos</div>
+            </div>
+        </a>
+    </div>
+    <div class="col-6 col-md-3">
+        <a asp-page="/Mascotas/Index" class="stat-card stat-teal text-decoration-none d-flex">
+            <div class="stat-icon"><i class="bi bi-heart-fill"></i></div>
+            <div>
+                <div class="stat-value">@s.TotalMascotas</div>
+                <div class="stat-label">Mascotas</div>
+                <div class="small fw-semibold" style="color:#00695c;">@s.MascotasActivas activas</div>
+            </div>
+        </a>
+    </div>
+    <div class="col-6 col-md-3">
+        <a asp-page="/Veterinarios/Index" class="stat-card stat-blue text-decoration-none d-flex">
+            <div class="stat-icon"><i class="bi bi-person-badge-fill"></i></div>
+            <div>
+                <div class="stat-value">@s.TotalVeterinarios</div>
+                <div class="stat-label">Veterinarios</div>
+                <div class="small fw-semibold" style="color:#0d47a1;">@s.VeterinariosActivos activos</div>
+            </div>
+        </a>
+    </div>
+    <div class="col-6 col-md-3">
+        <a asp-page="/Citas/Index" asp-route-filtroEstado="Pendiente"
+           class="stat-card stat-amber text-decoration-none d-flex">
+            <div class="stat-icon"><i class="bi bi-calendar2-check-fill"></i></div>
+            <div>
+                <div class="stat-value">@s.CitasPendientes</div>
+                <div class="stat-label">Pendientes</div>
+                <div class="small fw-semibold" style="color:#e65100;">@s.CitasCompletadas completadas</div>
+            </div>
+        </a>
+    </div>
+</div>
+
+<!-- ═══ FILA PRINCIPAL ═══════════════════════════════════════════ -->
+<div class="row g-4 mb-4">
+
+    <!-- Próximas citas -->
+    <div class="col-lg-7">
+        <div class="card h-100">
+            <div class="card-header card-header-vet d-flex justify-content-between align-items-center">
+                <span><i class="bi bi-calendar2-week me-2"></i>Próximas Citas</span>
+                <a asp-page="/Citas/Index" class="btn btn-sm btn-light text-success fw-semibold">Ver todas</a>
+            </div>
+            <div class="card-body p-0">
+                @if (s.ProximasCitas.Any())
+                {
+                    <div class="table-responsive">
+                        <table class="table table-vet table-hover mb-0">
+                            <thead>
+                                <tr>
+                                    <th>Fecha / Hora</th>
+                                    <th>Mascota</th>
+                                    <th>Veterinario</th>
+                                    <th>Motivo</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var c in s.ProximasCitas)
+                                {
+                                    <tr>
+                                        <td>
+                                            <div class="fw-semibold small">@c.FechaHora.ToString("dd/MM/yyyy")</div>
+                                            <div class="text-muted small">@c.FechaHora.ToString("HH:mm")</div>
+                                        </td>
+                                        <td>
+                                            <span class="fw-semibold">@c.Mascota?.Nombre</span>
+                                            <div class="text-muted small">@c.Mascota?.Especie</div>
+                                        </td>
+                                        <td class="small">@c.Veterinario?.Apellido</td>
+                                        <td class="small text-muted"
+                                            style="max-width:130px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;"
+                                            title="@c.Motivo">@c.Motivo</td>
+                                        <td>
+                                            <a asp-page="/Citas/Details" asp-route-id="@c.Id"
+                                               class="btn btn-sm btn-outline-info">
+                                                <i class="bi bi-eye"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                }
+                else
+                {
+                    <div class="empty-state py-4">
+                        <div class="empty-icon">📅</div>
+                        <p class="text-muted mb-2">No hay citas próximas pendientes.</p>
+                        <a asp-page="/Citas/Create" class="btn btn-sm btn-vet-primary">
+                            <i class="bi bi-plus me-1"></i>Agendar ahora
+                        </a>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+    <!-- Panel derecho -->
+    <div class="col-lg-5 d-flex flex-column gap-4">
+
+        <!-- Resumen de citas con barras de progreso -->
+        <div class="card">
+            <div class="card-header card-header-vet">
+                <i class="bi bi-bar-chart-fill me-2"></i>Resumen de Citas
+            </div>
+            <div class="card-body pb-2">
+                <!-- Pendientes -->
+                <div class="d-flex justify-content-between align-items-center mb-1 small">
+                    <span><i class="bi bi-circle-fill me-1" style="color:var(--vet-amber);"></i>Pendientes</span>
+                    <span class="fw-semibold">@s.CitasPendientes (@pctPend%)</span>
+                </div>
+                <div class="progress mb-3" style="height:10px;border-radius:8px;">
+                    <div class="progress-bar" role="progressbar"
+                         style="width:@pctPend%;background:var(--vet-amber);border-radius:8px;"
+                         aria-valuenow="@pctPend" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                <!-- Completadas -->
+                <div class="d-flex justify-content-between align-items-center mb-1 small">
+                    <span><i class="bi bi-circle-fill me-1" style="color:#1565c0;"></i>Completadas</span>
+                    <span class="fw-semibold">@s.CitasCompletadas (@pctComp%)</span>
+                </div>
+                <div class="progress mb-3" style="height:10px;border-radius:8px;">
+                    <div class="progress-bar" role="progressbar"
+                         style="width:@pctComp%;background:#1565c0;border-radius:8px;"
+                         aria-valuenow="@pctComp" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                <!-- Canceladas -->
+                <div class="d-flex justify-content-between align-items-center mb-1 small">
+                    <span><i class="bi bi-circle-fill me-1" style="color:var(--vet-red);"></i>Canceladas</span>
+                    <span class="fw-semibold">@s.CitasCanceladas (@pctCanc%)</span>
+                </div>
+                <div class="progress mb-2" style="height:10px;border-radius:8px;">
+                    <div class="progress-bar" role="progressbar"
+                         style="width:@pctCanc%;background:var(--vet-red);border-radius:8px;"
+                         aria-valuenow="@pctCanc" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                <div class="text-center text-muted small mt-2">
+                    Total registradas: <strong>@total</strong>
+                </div>
+            </div>
+        </div>
+
+        <!-- Accesos rápidos -->
+        <div class="card">
+            <div class="card-header card-header-vet">
+                <i class="bi bi-lightning-charge me-2"></i>Accesos Rápidos
+            </div>
+            <div class="card-body">
+                <div class="d-grid gap-2">
+                    <a asp-page="/Citas/Create" class="btn btn-vet-primary">
+                        <i class="bi bi-calendar2-plus me-2"></i>Nueva Cita
+                    </a>
+                    <a asp-page="/Mascotas/Create" class="btn btn-vet-outline">
+                        <i class="bi bi-heart me-2"></i>Registrar Mascota
+                    </a>
+                    <a asp-page="/Propietarios/Create" class="btn btn-vet-outline">
+                        <i class="bi bi-person-plus me-2"></i>Nuevo Propietario
+                    </a>
+                    <a asp-page="/Veterinarios/Create" class="btn btn-vet-outline">
+                        <i class="bi bi-person-badge me-2"></i>Nuevo Veterinario
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ═══ FILA INFERIOR ════════════════════════════════════════════ -->
+<div class="row g-4">
+
+    <!-- Propietarios activos -->
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-header card-header-vet d-flex justify-content-between align-items-center">
+                <span><i class="bi bi-people me-2"></i>Propietarios Activos</span>
+                <a asp-page="/Propietarios/Index" class="btn btn-sm btn-light text-success fw-semibold">Ver todos</a>
+            </div>
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-vet table-hover mb-0">
+                        <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Teléfono</th>
+                                <th class="text-center">Mascotas</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var p in Model.PropietariosActivos)
+                            {
+                                <tr>
+                                    <td class="fw-semibold small">@p.NombreCompleto</td>
+                                    <td class="small">@p.Telefono</td>
+                                    <td class="text-center">
+                                        <span class="badge bg-secondary rounded-pill">
+                                            @Model.ContarMascotas(p.Id)
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <a asp-page="/Propietarios/Details" asp-route-id="@p.Id"
+                                           class="btn btn-sm btn-outline-info">
+                                            <i class="bi bi-eye"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mascotas activas (chips visuales) -->
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-header card-header-vet d-flex justify-content-between align-items-center">
+                <span><i class="bi bi-heart me-2"></i>Mascotas Activas</span>
+                <a asp-page="/Mascotas/Index" class="btn btn-sm btn-light text-success fw-semibold">Ver todas</a>
+            </div>
+            <div class="card-body">
+                @if (Model.MascotasActivas.Any())
+                {
+                    <div class="d-flex flex-wrap gap-2">
+                        @foreach (var m in Model.MascotasActivas)
+                        {
+                            <a asp-page="/Mascotas/Details" asp-route-id="@m.Id"
+                               class="mascota-chip text-decoration-none">
+                                <span>@(m.Especie.ToLower() == "perro" ? "🐶" :
+                                        m.Especie.ToLower() == "gato"  ? "🐱" :
+                                        m.Especie.ToLower() == "ave"   ? "🐦" : "🐾")</span>
+                                <span class="fw-semibold">@m.Nombre</span>
+                                <span class="text-muted small">@m.Especie</span>
+                            </a>
+                        }
+                    </div>
+                }
+                else
+                {
+                    <div class="empty-state py-3">
+                        <div class="empty-icon">🐾</div>
+                        <p class="text-muted mb-0">No hay mascotas activas registradas.</p>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .hero-banner {
+        background: linear-gradient(135deg, var(--vet-green-dark) 0%, var(--vet-green) 55%, var(--vet-teal) 100%);
+        border-radius: 16px;
+        padding: 1.5rem 2rem;
+        box-shadow: 0 4px 18px rgba(46,125,50,.3);
+    }
+    .hero-icon { font-size: 3rem; filter: drop-shadow(0 2px 4px rgba(0,0,0,.3)); }
+    .text-white-75 { color: rgba(255,255,255,.82); }
+
+    .mascota-chip {
+        display: inline-flex;
+        align-items: center;
+        gap: .4rem;
+        background: var(--vet-green-light);
+        border: 1px solid rgba(46,125,50,.2);
+        border-radius: 30px;
+        padding: .3rem .9rem;
+        font-size: .85rem;
+        color: var(--vet-text);
+        transition: background .2s, transform .15s;
+    }
+    .mascota-chip:hover {
+        background: var(--vet-teal-light);
+        transform: translateY(-2px);
+        color: var(--vet-text);
+    }
+</style>
