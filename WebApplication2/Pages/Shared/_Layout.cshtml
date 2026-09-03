@@ -1,0 +1,145 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] – El Arca de Noé Veterinaria</title>
+
+    <!-- Bootstrap 5 -->
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <!-- Bootstrap Icons (CDN) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+    <!-- Estilos de la veterinaria -->
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/WebApplication2.styles.css" asp-append-version="true" />
+</head>
+<body>
+
+    <!-- ═══════════════════════════════════════════════
+         NAVBAR SUPERIOR
+    ═══════════════════════════════════════════════ -->
+    <nav class="navbar navbar-expand-lg navbar-vet">
+        <div class="container-fluid">
+
+            <!-- Logo + Nombre -->
+            <a class="navbar-brand" asp-page="/Index">
+                <span class="brand-icon">🐾</span>
+                <span>El Arca de Noé</span>
+            </a>
+
+            <!-- Botón hamburguesa (móvil) -->
+            <button class="navbar-toggler" type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#navbarMain"
+                    aria-controls="navbarMain"
+                    aria-expanded="false"
+                    aria-label="Abrir menú">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Links de navegación -->
+            <div class="collapse navbar-collapse" id="navbarMain">
+                <ul class="navbar-nav ms-auto align-items-lg-center gap-1">
+
+                    <!-- Dashboard -->
+                    <li class="nav-item">
+                        <a class="nav-link" asp-page="/Index">
+                            <i class="bi bi-speedometer2 nav-icon"></i>Dashboard
+                        </a>
+                    </li>
+
+                    <!-- Propietarios -->
+                    <li class="nav-item">
+                        <a class="nav-link" asp-page="/Propietarios/Index">
+                            <i class="bi bi-people nav-icon"></i>Propietarios
+                        </a>
+                    </li>
+
+                    <!-- Mascotas -->
+                    <li class="nav-item">
+                        <a class="nav-link" asp-page="/Mascotas/Index">
+                            <i class="bi bi-heart nav-icon"></i>Mascotas
+                        </a>
+                    </li>
+
+                    <!-- Veterinarios -->
+                    <li class="nav-item">
+                        <a class="nav-link" asp-page="/Veterinarios/Index">
+                            <i class="bi bi-person-badge nav-icon"></i>Veterinarios
+                        </a>
+                    </li>
+
+                    <!-- Citas -->
+                    <li class="nav-item">
+                        <a class="nav-link" asp-page="/Citas/Index">
+                            <i class="bi bi-calendar2-check nav-icon"></i>Citas
+                        </a>
+                    </li>
+
+                    <!-- Separador visual -->
+                    <li class="nav-item d-none d-lg-block">
+                        <span style="color:rgba(255,255,255,.3); font-size:1.2rem; line-height:1;">|</span>
+                    </li>
+
+                    <!-- Nueva cita (botón destacado) -->
+                    <li class="nav-item">
+                        <a class="btn btn-sm btn-light fw-semibold ms-1"
+                           style="color: var(--vet-green-dark);"
+                           asp-page="/Citas/Create">
+                            <i class="bi bi-plus-circle me-1"></i>Nueva Cita
+                        </a>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ═══════════════════════════════════════════════
+         CONTENIDO PRINCIPAL
+    ═══════════════════════════════════════════════ -->
+    <div class="main-wrapper animate-in">
+        <div class="container-fluid">
+
+            <!-- Mensajes TempData globales -->
+            @if (TempData["Exito"] != null)
+            {
+                <div class="alert alert-vet-success alert-dismissible fade show mb-3" role="alert">
+                    <i class="bi bi-check-circle-fill me-2"></i>@TempData["Exito"]
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
+                </div>
+            }
+            @if (TempData["Error"] != null)
+            {
+                <div class="alert alert-vet-danger alert-dismissible fade show mb-3" role="alert">
+                    <i class="bi bi-exclamation-triangle-fill me-2"></i>@TempData["Error"]
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
+                </div>
+            }
+
+            <main role="main">
+                @RenderBody()
+            </main>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════
+         FOOTER
+    ═══════════════════════════════════════════════ -->
+    <footer class="footer-vet">
+        <div class="container">
+            <span>🐾 <strong>El Arca de Noé</strong> – Clínica Veterinaria &nbsp;|&nbsp;</span>
+            <span>&copy; @DateTime.Now.Year &nbsp;|&nbsp;</span>
+            <span>Cuidando a tus mascotas con amor ❤️</span>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+
+</body>
+</html>
