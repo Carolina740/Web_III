@@ -47,7 +47,7 @@
 <div class="card">
     <div class="card-header card-header-vet d-flex align-items-center justify-content-between">
         <span><i class="bi bi-list-ul me-2"></i>Personal Médico</span>
-        <span class="badge bg-white text-primary fw-semibold">@Model.Veterinarios.Count registros</span>
+        <span class="badge bg-white fw-semibold" style="color:var(--phthalo);">@Model.Veterinarios.Count registros</span>
     </div>
     <div class="card-body p-0">
         @if (Model.Veterinarios.Any())
@@ -135,7 +135,7 @@
 <style>
     .vet-avatar {
         width: 36px; height: 36px; border-radius: 50%;
-        background: linear-gradient(135deg, var(--vet-blue), var(--vet-cyan));
+        background: linear-gradient(135deg, var(--phthalo), var(--atlantis), var(--periwinkle));
         color: #fff; font-weight: 700; font-size: .8rem;
         display: flex; align-items: center; justify-content: center;
         flex-shrink: 0; text-transform: uppercase;

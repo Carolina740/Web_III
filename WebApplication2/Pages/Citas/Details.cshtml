@@ -113,7 +113,7 @@
                     </p>
                     @if (!string.IsNullOrWhiteSpace(c.Diagnostico))
                     {
-                        <div class="p-3 rounded-3" style="background: var(--vet-cyan-light); border-left: 4px solid var(--vet-cyan);">
+                        <div class="p-3 rounded-3" style="background: var(--vet-accent-light); border-left: 4px solid var(--periwinkle);">
                             @c.Diagnostico
                         </div>
                     }
@@ -139,7 +139,7 @@
 <!-- Acciones rápidas de estado -->
 @if (c.Estado == EstadoCita.Pendiente)
 {
-    <div class="card mt-4 border-0" style="background: var(--vet-blue-light);">
+    <div class="card mt-4 border-0" style="background: var(--vet-primary-light);">
         <div class="card-body py-3 d-flex align-items-center gap-3 flex-wrap">
             <span class="fw-semibold text-vet-blue">
                 <i class="bi bi-lightning-charge me-1"></i>Acciones rápidas:

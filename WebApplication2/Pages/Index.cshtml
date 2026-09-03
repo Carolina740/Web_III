@@ -22,7 +22,7 @@
             </p>
         </div>
         <div class="ms-auto">
-            <a asp-page="/Citas/Create" class="btn btn-light fw-semibold" style="color:var(--vet-blue-dark);">
+            <a asp-page="/Citas/Create" class="btn btn-light fw-semibold" style="color:var(--phthalo);">
                 <i class="bi bi-plus-circle me-1"></i>Nueva Cita
             </a>
         </div>
@@ -37,7 +37,7 @@
             <div>
                 <div class="stat-value">@s.TotalPropietarios</div>
                 <div class="stat-label">Propietarios</div>
-                <div class="small text-primary fw-semibold">@s.PropietariosActivos activos</div>
+                <div class="small fw-semibold" style="color:var(--atlantis);">@s.PropietariosActivos activos</div>
             </div>
         </a>
     </div>
@@ -47,7 +47,7 @@
             <div>
                 <div class="stat-value">@s.TotalMascotas</div>
                 <div class="stat-label">Mascotas</div>
-                <div class="small fw-semibold" style="color:#01579b;">@s.MascotasActivas activas</div>
+                <div class="small fw-semibold" style="color:var(--periwinkle);">@s.MascotasActivas activas</div>
             </div>
         </a>
     </div>
@@ -57,7 +57,7 @@
             <div>
                 <div class="stat-value">@s.TotalVeterinarios</div>
                 <div class="stat-label">Veterinarios</div>
-                <div class="small fw-semibold" style="color:#0d47a1;">@s.VeterinariosActivos activos</div>
+                <div class="small fw-semibold" style="color:var(--phthalo);">@s.VeterinariosActivos activos</div>
             </div>
         </a>
     </div>
@@ -82,7 +82,7 @@
         <div class="card h-100">
             <div class="card-header card-header-vet d-flex justify-content-between align-items-center">
                 <span><i class="bi bi-calendar2-week me-2"></i>Próximas Citas</span>
-                <a asp-page="/Citas/Index" class="btn btn-sm btn-light text-primary fw-semibold">Ver todas</a>
+                <a asp-page="/Citas/Index" class="btn btn-sm btn-light fw-semibold" style="color:var(--atlantis);">Ver todas</a>
             </div>
             <div class="card-body p-0">
                 @if (s.ProximasCitas.Any())
@@ -151,22 +151,22 @@
             <div class="card-body pb-2">
                 <!-- Pendientes -->
                 <div class="d-flex justify-content-between align-items-center mb-1 small">
-                    <span><i class="bi bi-circle-fill me-1" style="color:var(--vet-amber);"></i>Pendientes</span>
+                    <span><i class="bi bi-circle-fill me-1" style="color:var(--phlox);"></i>Pendientes</span>
                     <span class="fw-semibold">@s.CitasPendientes (@pctPend%)</span>
                 </div>
                 <div class="progress mb-3" style="height:10px;border-radius:8px;">
                     <div class="progress-bar" role="progressbar"
-                         style="width:@pctPend%;background:var(--vet-amber);border-radius:8px;"
+                         style="width:@pctPend%;background:var(--phlox);border-radius:8px;"
                          aria-valuenow="@pctPend" aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
                 <!-- Completadas -->
                 <div class="d-flex justify-content-between align-items-center mb-1 small">
-                    <span><i class="bi bi-circle-fill me-1" style="color:#1565c0;"></i>Completadas</span>
+                    <span><i class="bi bi-circle-fill me-1" style="color:var(--verbena);"></i>Completadas</span>
                     <span class="fw-semibold">@s.CitasCompletadas (@pctComp%)</span>
                 </div>
                 <div class="progress mb-3" style="height:10px;border-radius:8px;">
                     <div class="progress-bar" role="progressbar"
-                         style="width:@pctComp%;background:#1565c0;border-radius:8px;"
+                         style="width:@pctComp%;background:var(--verbena);border-radius:8px;"
                          aria-valuenow="@pctComp" aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
                 <!-- Canceladas -->
@@ -218,7 +218,7 @@
         <div class="card">
             <div class="card-header card-header-vet d-flex justify-content-between align-items-center">
                 <span><i class="bi bi-people me-2"></i>Propietarios Activos</span>
-                <a asp-page="/Propietarios/Index" class="btn btn-sm btn-light text-primary fw-semibold">Ver todos</a>
+                <a asp-page="/Propietarios/Index" class="btn btn-sm btn-light fw-semibold" style="color:var(--atlantis);">Ver todos</a>
             </div>
             <div class="card-body p-0">
                 <div class="table-responsive">
@@ -262,7 +262,7 @@
         <div class="card">
             <div class="card-header card-header-vet d-flex justify-content-between align-items-center">
                 <span><i class="bi bi-heart me-2"></i>Mascotas Activas</span>
-                <a asp-page="/Mascotas/Index" class="btn btn-sm btn-light text-primary fw-semibold">Ver todas</a>
+                <a asp-page="/Mascotas/Index" class="btn btn-sm btn-light fw-semibold" style="color:var(--atlantis);">Ver todas</a>
             </div>
             <div class="card-body">
                 @if (Model.MascotasActivas.Any())
@@ -295,10 +295,15 @@
 
 <style>
     .hero-banner {
-        background: linear-gradient(135deg, var(--vet-blue-dark) 0%, var(--vet-blue) 55%, var(--vet-cyan) 100%);
+        background: linear-gradient(135deg,
+            var(--phthalo) 0%,
+            var(--atlantis) 35%,
+            var(--periwinkle) 65%,
+            var(--verbena) 85%,
+            var(--phlox) 100%);
         border-radius: 16px;
         padding: 1.5rem 2rem;
-        box-shadow: 0 4px 18px rgba(21,101,192,.3);
+        box-shadow: 0 4px 22px rgba(14,21,94,.35);
     }
     .hero-icon { font-size: 3rem; filter: drop-shadow(0 2px 4px rgba(0,0,0,.3)); }
     .text-white-75 { color: rgba(255,255,255,.82); }
@@ -307,8 +312,8 @@
         display: inline-flex;
         align-items: center;
         gap: .4rem;
-        background: var(--vet-blue-light);
-        border: 1px solid rgba(21,101,192,.2);
+        background: var(--vet-primary-light);
+        border: 1px solid rgba(32,106,188,.22);
         border-radius: 30px;
         padding: .3rem .9rem;
         font-size: .85rem;
@@ -316,7 +321,7 @@
         transition: background .2s, transform .15s;
     }
     .mascota-chip:hover {
-        background: var(--vet-cyan-light);
+        background: var(--vet-accent-light);
         transform: translateY(-2px);
         color: var(--vet-text);
     }
