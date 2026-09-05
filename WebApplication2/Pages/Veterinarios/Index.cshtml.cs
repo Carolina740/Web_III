@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using WebApplication2.Models;
 using WebApplication2.Services;
@@ -36,8 +36,6 @@ public class IndexModel : PageModel
 
         Veterinarios = lista;
     }
-
-    /// <summary>Citas pendientes asignadas a este veterinario.</summary>
     public int ContarCitasPendientes(int veterinarioId) =>
         _svc.ObtenerCitas(false)
             .Count(c => c.VeterinarioId == veterinarioId && c.Estado == EstadoCita.Pendiente);

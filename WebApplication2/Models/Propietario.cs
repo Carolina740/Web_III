@@ -1,10 +1,6 @@
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace WebApplication2.Models;
-
-/// <summary>
-/// Representa al dueño de una o más mascotas registradas en la veterinaria.
-/// </summary>
 public class Propietario
 {
     public int Id { get; set; }
@@ -33,7 +29,5 @@ public class Propietario
 
     [Display(Name = "Estado")]
     public EstadoGeneral Estado { get; set; } = EstadoGeneral.Activo;
-
-    /// <summary>Nombre completo calculado: Apellido, Nombre.</summary>
     public string NombreCompleto => $"{Apellido}, {Nombre}";
 }

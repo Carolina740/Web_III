@@ -1,10 +1,6 @@
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace WebApplication2.Models;
-
-/// <summary>
-/// Representa una mascota registrada en la veterinaria.
-/// </summary>
 public class Mascota
 {
     public int Id { get; set; }
@@ -17,8 +13,6 @@ public class Mascota
     [Required(ErrorMessage = "Debe seleccionar un propietario.")]
     [Display(Name = "Propietario")]
     public int PropietarioId { get; set; }
-
-    // Navegación (no persistida en BD, se resuelve en el servicio)
     public Propietario? Propietario { get; set; }
 
     [Required(ErrorMessage = "La especie es obligatoria.")]
@@ -41,7 +35,5 @@ public class Mascota
 
     [Display(Name = "Estado")]
     public EstadoGeneral Estado { get; set; } = EstadoGeneral.Activo;
-
-    /// <summary>Calcula la edad aproximada en años.</summary>
     public int Edad => (int)((DateTime.Today - FechaNacimiento).TotalDays / 365.25);
 }

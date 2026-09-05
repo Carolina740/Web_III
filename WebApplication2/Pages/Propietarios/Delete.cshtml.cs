@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using WebApplication2.Models;
 using WebApplication2.Services;
@@ -31,7 +31,6 @@ public class DeleteModel : PageModel
 
     public IActionResult OnPost(int id)
     {
-        // Verificación de seguridad: no eliminar si tiene mascotas
         if (_svc.TieneMascotas(id))
         {
             TempData["Error"] = "No se puede eliminar un propietario que tiene mascotas registradas.";

@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using WebApplication2.Models;
 using WebApplication2.Services;
@@ -41,8 +41,6 @@ public class IndexModel : PageModel
 
         Propietarios = lista;
     }
-
-    /// <summary>Devuelve cuántas mascotas activas tiene un propietario.</summary>
     public int ContarMascotas(int propietarioId) =>
         _svc.ObtenerMascotasPorPropietario(propietarioId).Count;
 }

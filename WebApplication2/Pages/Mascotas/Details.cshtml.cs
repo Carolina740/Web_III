@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using WebApplication2.Models;
 using WebApplication2.Services;
@@ -22,8 +22,6 @@ public class DetailsModel : PageModel
             TempData["Error"] = "Mascota no encontrada.";
             return RedirectToPage("Index");
         }
-
-        // Obtener citas de esta mascota con navegación resuelta
         Citas = _svc.ObtenerCitas()
                     .Where(c => c.MascotaId == id)
                     .OrderByDescending(c => c.FechaHora)

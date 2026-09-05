@@ -1,26 +1,13 @@
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using WebApplication2.Data;
 using WebApplication2.Models;
 
 namespace WebApplication2.Services;
-
-/// <summary>
-/// Servicio de datos de la veterinaria El Arca de Moe.
-/// Usa Entity Framework Core — compatible con SQL Server, SQLite,
-/// MySQL, PostgreSQL o cualquier proveedor configurado en appsettings.json.
-///
-/// La firma pública de todos los métodos es idéntica a la versión en memoria,
-/// por lo que ninguna página Razor requiere modificaciones.
-/// </summary>
 public class VeterinariaService
 {
     private readonly VeterinariaDbContext _db;
 
     public VeterinariaService(VeterinariaDbContext db) => _db = db;
-
-    // =======================================================================
-    // PROPIETARIOS
-    // =======================================================================
 
     public List<Propietario> ObtenerPropietarios() =>
         _db.Propietarios
@@ -63,10 +50,6 @@ public class VeterinariaService
 
     public bool TieneMascotas(int propietarioId) =>
         _db.Mascotas.Any(m => m.PropietarioId == propietarioId);
-
-    // =======================================================================
-    // MASCOTAS
-    // =======================================================================
 
     public List<Mascota> ObtenerMascotas(bool resolverNavegacion = true)
     {
@@ -131,10 +114,6 @@ public class VeterinariaService
     public bool TieneCitas(int mascotaId) =>
         _db.Citas.Any(c => c.MascotaId == mascotaId);
 
-    // =======================================================================
-    // VETERINARIOS
-    // =======================================================================
-
     public List<Veterinario> ObtenerVeterinarios() =>
         _db.Veterinarios
            .OrderBy(v => v.Apellido).ThenBy(v => v.Nombre)
@@ -173,10 +152,6 @@ public class VeterinariaService
         _db.SaveChanges();
         return true;
     }
-
-    // =======================================================================
-    // CITAS
-    // =======================================================================
 
     public List<Cita> ObtenerCitas(bool resolverNavegacion = true)
     {
@@ -241,10 +216,6 @@ public class VeterinariaService
         return true;
     }
 
-    // =======================================================================
-    // ESTADÍSTICAS para el Dashboard
-    // =======================================================================
-
     public DashboardStats ObtenerEstadisticas() => new DashboardStats
     {
         TotalPropietarios   = _db.Propietarios.Count(),
@@ -259,8 +230,6 @@ public class VeterinariaService
         ProximasCitas       = ObtenerCitasPendientes().Take(5).ToList()
     };
 }
-
-/// <summary>DTO con las métricas para el Dashboard.</summary>
 public class DashboardStats
 {
     public int TotalPropietarios   { get; init; }

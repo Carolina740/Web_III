@@ -1,10 +1,6 @@
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace WebApplication2.Models;
-
-/// <summary>
-/// Representa un veterinario que trabaja en la clínica.
-/// </summary>
 public class Veterinario
 {
     public int Id { get; set; }
@@ -32,7 +28,5 @@ public class Veterinario
 
     [Display(Name = "Estado")]
     public EstadoGeneral Estado { get; set; } = EstadoGeneral.Activo;
-
-    /// <summary>Nombre completo calculado: Dr. Apellido, Nombre.</summary>
     public string NombreCompleto => $"Dr. {Apellido}, {Nombre}";
 }

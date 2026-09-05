@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using WebApplication2.Models;
@@ -20,7 +20,6 @@ public class EditModel : PageModel
 
     public IActionResult OnGet(int id)
     {
-        // Cargamos sin navegación para no contaminar el bind
         Cita = _svc.ObtenerCitaPorId(id, resolverNavegacion: false);
         if (Cita is null)
         {

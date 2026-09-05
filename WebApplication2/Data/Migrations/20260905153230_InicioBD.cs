@@ -5,10 +5,8 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace WebApplication2.Data.Migrations
 {
-    /// <inheritdoc />
     public partial class InicioBD : Migration
     {
-        /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
@@ -115,8 +113,6 @@ namespace WebApplication2.Data.Migrations
                 table: "Mascotas",
                 column: "PropietarioId");
         }
-
-        /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(

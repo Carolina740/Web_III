@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using WebApplication2.Models;
 using WebApplication2.Services;
@@ -23,8 +23,6 @@ public class DetailsModel : PageModel
         }
         return Page();
     }
-
-    /// <summary>Cambia el estado de una cita directamente desde el detalle.</summary>
     public IActionResult OnPostCambiarEstado(int id, string estado)
     {
         var cita = _svc.ObtenerCitaPorId(id, resolverNavegacion: false);

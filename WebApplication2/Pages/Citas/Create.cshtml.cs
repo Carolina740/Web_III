@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using WebApplication2.Models;
@@ -41,7 +41,6 @@ public class CreateModel : PageModel
 
     private void CargarSelectLists()
     {
-        // Mascotas activas con nombre + especie para facilitar selección
         var mascotas = _svc.ObtenerMascotas()
                            .Where(m => m.Estado == EstadoGeneral.Activo)
                            .Select(m => new
@@ -51,8 +50,6 @@ public class CreateModel : PageModel
                            })
                            .ToList();
         MascotasSelectList = new SelectList(mascotas, "Id", "Descripcion");
-
-        // Veterinarios activos
         var veterinarios = _svc.ObtenerVeterinarios()
                                .Where(v => v.Estado == EstadoGeneral.Activo)
                                .Select(v => new
