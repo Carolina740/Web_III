@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using WebApplication2.Models;
@@ -6,6 +7,7 @@ using WebApplication2.Services;
 
 namespace WebApplication2.Pages.Citas;
 
+[Authorize]
 public class EditModel : PageModel
 {
     private readonly VeterinariaService _svc;

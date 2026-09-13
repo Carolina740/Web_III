@@ -1,9 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using WebApplication2.Models;
 
 namespace WebApplication2.Data;
 
-public class VeterinariaDbContext : DbContext
+public class VeterinariaDbContext : IdentityDbContext<ApplicationUser>
 {
     public VeterinariaDbContext(DbContextOptions<VeterinariaDbContext> options)
         : base(options) { }
@@ -25,6 +26,7 @@ public class VeterinariaDbContext : DbContext
             e.Property(p => p.Telefono) .IsRequired().HasMaxLength(15);
             e.Property(p => p.Correo)   .IsRequired().HasMaxLength(100);
             e.Property(p => p.Estado)   .HasConversion<int>();
+            e.HasIndex(p => p.Correo)   .IsUnique();
             e.Ignore(p => p.NombreCompleto);
         });
 

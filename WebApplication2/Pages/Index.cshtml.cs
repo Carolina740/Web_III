@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc.RazorPages;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using WebApplication2.Models;
 using WebApplication2.Services;
 
 namespace WebApplication2.Pages;
 
+[Authorize]
 public class IndexModel : PageModel
 {
     private readonly VeterinariaService _svc;
