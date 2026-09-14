@@ -1,0 +1,94 @@
+@page
+@model WebApplication2.Pages.Veterinarios.CreateModel
+@{
+    ViewData["Title"] = "Nuevo Veterinario";
+}
+
+<nav aria-label="breadcrumb" class="breadcrumb-vet">
+    <ol class="breadcrumb mb-0">
+        <li class="breadcrumb-item"><a asp-page="/Index"><i class="bi bi-house"></i></a></li>
+        <li class="breadcrumb-item"><a asp-page="Index">Veterinarios</a></li>
+        <li class="breadcrumb-item active">Nuevo</li>
+    </ol>
+</nav>
+
+<div class="page-header">
+    <h1><i class="bi bi-person-plus-fill me-2"></i>Nuevo Veterinario</h1>
+</div>
+
+<div class="row justify-content-center">
+    <div class="col-lg-7">
+        <div class="card">
+            <div class="card-header card-header-vet">
+                <i class="bi bi-person-badge me-2"></i>Datos del Veterinario
+            </div>
+            <div class="card-body p-4">
+                <form method="post">
+                    @Html.AntiForgeryToken()
+                    <div asp-validation-summary="ModelOnly" class="alert alert-vet-danger mb-3"></div>
+
+                    <div class="row g-3">
+                        <div class="col-sm-6">
+                            <label asp-for="Veterinario.Nombre" class="form-label"></label>
+                            <input asp-for="Veterinario.Nombre" class="form-control" placeholder="Ej: Andrés" />
+                            <span asp-validation-for="Veterinario.Nombre" class="text-danger small"></span>
+                        </div>
+                        <div class="col-sm-6">
+                            <label asp-for="Veterinario.Apellido" class="form-label"></label>
+                            <input asp-for="Veterinario.Apellido" class="form-control" placeholder="Ej: Pereira" />
+                            <span asp-validation-for="Veterinario.Apellido" class="text-danger small"></span>
+                        </div>
+                        <div class="col-12">
+                            <label asp-for="Veterinario.Especialidad" class="form-label"></label>
+                            <input asp-for="Veterinario.Especialidad" class="form-control"
+                                   list="especialidadesList"
+                                   placeholder="Ej: Medicina General, Cirugía Veterinaria…" />
+                            <datalist id="especialidadesList">
+                                <option value="Medicina General" />
+                                <option value="Cirugía Veterinaria" />
+                                <option value="Dermatología Animal" />
+                                <option value="Odontología Veterinaria" />
+                                <option value="Cardiología Veterinaria" />
+                                <option value="Oftalmología Veterinaria" />
+                                <option value="Oncología Veterinaria" />
+                                <option value="Traumatología Animal" />
+                                <option value="Nutrición Animal" />
+                                <option value="Medicina Preventiva" />
+                            </datalist>
+                            <span asp-validation-for="Veterinario.Especialidad" class="text-danger small"></span>
+                        </div>
+                        <div class="col-sm-6">
+                            <label asp-for="Veterinario.Telefono" class="form-label"></label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-telephone"></i></span>
+                                <input asp-for="Veterinario.Telefono" class="form-control" placeholder="Ej: 3001234567" />
+                            </div>
+                            <span asp-validation-for="Veterinario.Telefono" class="text-danger small"></span>
+                        </div>
+                        <div class="col-sm-6">
+                            <label asp-for="Veterinario.Estado" class="form-label"></label>
+                            <select asp-for="Veterinario.Estado"
+                                    asp-items="Html.GetEnumSelectList<EstadoGeneral>()"
+                                    class="form-select"></select>
+                        </div>
+                    </div>
+
+                    <hr class="divider-vet" />
+
+                    <div class="d-flex gap-2 justify-content-end">
+                        <a asp-page="Index" class="btn btn-outline-secondary">
+                            <i class="bi bi-arrow-left me-1"></i>Cancelar
+                        </a>
+                        <button type="submit" class="btn btn-vet-primary">
+                            <i class="bi bi-floppy me-1"></i>Guardar Veterinario
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

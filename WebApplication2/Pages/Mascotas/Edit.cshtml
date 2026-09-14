@@ -1,0 +1,104 @@
+@page "{id:int}"
+@model WebApplication2.Pages.Mascotas.EditModel
+@{
+    ViewData["Title"] = "Editar Mascota";
+}
+
+<nav aria-label="breadcrumb" class="breadcrumb-vet">
+    <ol class="breadcrumb mb-0">
+        <li class="breadcrumb-item"><a asp-page="/Index"><i class="bi bi-house"></i></a></li>
+        <li class="breadcrumb-item"><a asp-page="Index">Mascotas</a></li>
+        <li class="breadcrumb-item active">Editar</li>
+    </ol>
+</nav>
+
+<div class="page-header">
+    <h1><i class="bi bi-pencil-square me-2"></i>Editar Mascota</h1>
+</div>
+
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="card">
+            <div class="card-header card-header-vet">
+                <i class="bi bi-heart me-2"></i>Modificar datos de @Model.Mascota?.Nombre
+            </div>
+            <div class="card-body p-4">
+                <form method="post">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" asp-for="Mascota.Id" />
+                    <div asp-validation-summary="ModelOnly" class="alert alert-vet-danger mb-3"></div>
+
+                    <div class="row g-3">
+                        <div class="col-sm-6">
+                            <label asp-for="Mascota.Nombre" class="form-label"></label>
+                            <input asp-for="Mascota.Nombre" class="form-control" />
+                            <span asp-validation-for="Mascota.Nombre" class="text-danger small"></span>
+                        </div>
+                        <div class="col-sm-6">
+                            <label asp-for="Mascota.PropietarioId" class="form-label"></label>
+                            <select asp-for="Mascota.PropietarioId"
+                                    asp-items="Model.PropietariosSelectList"
+                                    class="form-select">
+                                <option value="">-- Seleccione propietario --</option>
+                            </select>
+                            <span asp-validation-for="Mascota.PropietarioId" class="text-danger small"></span>
+                        </div>
+                        <div class="col-sm-6">
+                            <label asp-for="Mascota.Especie" class="form-label"></label>
+                            <input asp-for="Mascota.Especie" class="form-control"
+                                   list="especiesList" />
+                            <datalist id="especiesList">
+                                <option value="Perro" /><option value="Gato" /><option value="Ave" />
+                                <option value="Conejo" /><option value="Pez" /><option value="Hamster" />
+                                <option value="Reptil" /><option value="Otro" />
+                            </datalist>
+                            <span asp-validation-for="Mascota.Especie" class="text-danger small"></span>
+                        </div>
+                        <div class="col-sm-6">
+                            <label asp-for="Mascota.Raza" class="form-label"></label>
+                            <input asp-for="Mascota.Raza" class="form-control" />
+                            <span asp-validation-for="Mascota.Raza" class="text-danger small"></span>
+                        </div>
+                        <div class="col-sm-6">
+                            <label asp-for="Mascota.FechaNacimiento" class="form-label"></label>
+                            <input asp-for="Mascota.FechaNacimiento" type="date" class="form-control"
+                                   max="@DateTime.Today.ToString("yyyy-MM-dd")" />
+                            <span asp-validation-for="Mascota.FechaNacimiento" class="text-danger small"></span>
+                        </div>
+                        <div class="col-sm-6">
+                            <label asp-for="Mascota.Color" class="form-label"></label>
+                            <input asp-for="Mascota.Color" class="form-control" list="colorsList" />
+                            <datalist id="colorsList">
+                                <option value="Negro" /><option value="Blanco" /><option value="Gris" />
+                                <option value="Marrón" /><option value="Amarillo" /><option value="Naranja" />
+                                <option value="Atigrado" /><option value="Manchado" /><option value="Bicolor" />
+                            </datalist>
+                            <span asp-validation-for="Mascota.Color" class="text-danger small"></span>
+                        </div>
+                        <div class="col-sm-6">
+                            <label asp-for="Mascota.Estado" class="form-label"></label>
+                            <select asp-for="Mascota.Estado"
+                                    asp-items="Html.GetEnumSelectList<EstadoGeneral>()"
+                                    class="form-select"></select>
+                        </div>
+                    </div>
+
+                    <hr class="divider-vet" />
+
+                    <div class="d-flex gap-2 justify-content-end">
+                        <a asp-page="Index" class="btn btn-outline-secondary">
+                            <i class="bi bi-arrow-left me-1"></i>Cancelar
+                        </a>
+                        <button type="submit" class="btn btn-vet-primary">
+                            <i class="bi bi-floppy me-1"></i>Guardar Cambios
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

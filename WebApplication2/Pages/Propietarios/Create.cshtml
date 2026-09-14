@@ -1,0 +1,83 @@
+@page
+@model WebApplication2.Pages.Propietarios.CreateModel
+@{
+    ViewData["Title"] = "Nuevo Propietario";
+}
+
+<nav aria-label="breadcrumb" class="breadcrumb-vet">
+    <ol class="breadcrumb mb-0">
+        <li class="breadcrumb-item"><a asp-page="/Index"><i class="bi bi-house"></i></a></li>
+        <li class="breadcrumb-item"><a asp-page="Index">Propietarios</a></li>
+        <li class="breadcrumb-item active">Nuevo</li>
+    </ol>
+</nav>
+
+<div class="page-header">
+    <h1><i class="bi bi-person-plus-fill me-2"></i>Nuevo Propietario</h1>
+</div>
+
+<div class="row justify-content-center">
+    <div class="col-lg-7">
+        <div class="card">
+            <div class="card-header card-header-vet">
+                <i class="bi bi-person-vcard me-2"></i>Datos del Propietario
+            </div>
+            <div class="card-body p-4">
+                <form method="post">
+                    @Html.AntiForgeryToken()
+                    <div asp-validation-summary="ModelOnly" class="alert alert-vet-danger mb-3"></div>
+
+                    <div class="row g-3">
+                        <div class="col-sm-6">
+                            <label asp-for="Propietario.Nombre" class="form-label"></label>
+                            <input asp-for="Propietario.Nombre" class="form-control" placeholder="Ej: María" />
+                            <span asp-validation-for="Propietario.Nombre" class="text-danger small"></span>
+                        </div>
+                        <div class="col-sm-6">
+                            <label asp-for="Propietario.Apellido" class="form-label"></label>
+                            <input asp-for="Propietario.Apellido" class="form-control" placeholder="Ej: González" />
+                            <span asp-validation-for="Propietario.Apellido" class="text-danger small"></span>
+                        </div>
+                        <div class="col-sm-6">
+                            <label asp-for="Propietario.Telefono" class="form-label"></label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-telephone"></i></span>
+                                <input asp-for="Propietario.Telefono" class="form-control" placeholder="Ej: 3001234567" />
+                            </div>
+                            <span asp-validation-for="Propietario.Telefono" class="text-danger small"></span>
+                        </div>
+                        <div class="col-sm-6">
+                            <label asp-for="Propietario.Correo" class="form-label"></label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+                                <input asp-for="Propietario.Correo" class="form-control" placeholder="correo@ejemplo.com" />
+                            </div>
+                            <span asp-validation-for="Propietario.Correo" class="text-danger small"></span>
+                        </div>
+                        <div class="col-sm-6">
+                            <label asp-for="Propietario.Estado" class="form-label"></label>
+                            <select asp-for="Propietario.Estado"
+                                    asp-items="Html.GetEnumSelectList<EstadoGeneral>()"
+                                    class="form-select"></select>
+                        </div>
+                    </div>
+
+                    <hr class="divider-vet" />
+
+                    <div class="d-flex gap-2 justify-content-end">
+                        <a asp-page="Index" class="btn btn-outline-secondary">
+                            <i class="bi bi-arrow-left me-1"></i>Cancelar
+                        </a>
+                        <button type="submit" class="btn btn-vet-primary">
+                            <i class="bi bi-floppy me-1"></i>Guardar Propietario
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
