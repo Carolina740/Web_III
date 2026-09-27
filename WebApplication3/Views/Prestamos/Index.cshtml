@@ -1,0 +1,56 @@
+@model IEnumerable<WebApplication3.Models.Prestamo>
+@{
+    ViewData["Title"] = "Préstamos";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h4 class="mb-0">Gestión de préstamos</h4>
+    <a asp-action="Crear" class="btn btn-primary btn-sm">+ Nuevo préstamo</a>
+</div>
+
+@if (TempData["Exito"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show py-2">
+        @TempData["Exito"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+}
+
+<div class="table-responsive">
+    <table class="table table-hover table-bordered">
+        <thead class="table-dark">
+            <tr>
+                <th>Usuario</th>
+                <th>Libro</th>
+                <th>Fecha préstamo</th>
+                <th>Fecha límite</th>
+                <th>Devolución</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var p in Model)
+            {
+                <tr>
+                    <td>@p.Usuario?.Nombre</td>
+                    <td>@p.Libro?.Titulo</td>
+                    <td>@p.FechaPrestamo.ToString("dd/MM/yyyy")</td>
+                    <td>@p.FechaLimite.ToString("dd/MM/yyyy")</td>
+                    <td>@(p.FechaDevolucion.HasValue ? p.FechaDevolucion.Value.ToString("dd/MM/yyyy") : "-")</td>
+                    <td>
+                        <span class="badge @(p.Estado == "Activo" ? "bg-success" : p.Estado == "Vencido" ? "bg-danger" : "bg-secondary")">
+                            @p.Estado
+                        </span>
+                    </td>
+                    <td>
+                        @if (p.Estado == "Activo")
+                        {
+                            <a asp-action="Devolver" asp-route-id="@p.Id" class="btn btn-sm btn-outline-primary">Devolver</a>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

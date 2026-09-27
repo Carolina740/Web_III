@@ -1,0 +1,25 @@
+@model IEnumerable<WebApplication3.Models.Libro>
+@{
+    ViewData["Title"] = "Catálogo";
+}
+
+<h4 class="mb-3">Catálogo de libros disponibles</h4>
+
+<div class="row row-cols-1 row-cols-md-3 g-3">
+    @foreach (var libro in Model)
+    {
+        <div class="col">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <h6 class="card-title">@libro.Titulo</h6>
+                    <p class="card-text text-muted mb-1"><small>@libro.Autor</small></p>
+                    <span class="badge bg-secondary">@libro.Categoria</span>
+                </div>
+                <div class="card-footer d-flex justify-content-between align-items-center">
+                    <small class="text-muted">ISBN: @libro.ISBN</small>
+                    <span class="badge bg-success">@libro.CantidadDisponible disponibles</span>
+                </div>
+            </div>
+        </div>
+    }
+</div>

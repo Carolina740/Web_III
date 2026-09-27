@@ -1,0 +1,56 @@
+@model WebApplication3.Models.LoginViewModel
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Iniciar sesión</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+</head>
+<body class="bg-light">
+    <div class="container">
+        <div class="row justify-content-center mt-5">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header bg-dark text-white text-center">
+                        <h5 class="mb-0">Universidad Privada del Valle</h5>
+                        <small>Sistema de Biblioteca - Sede Sucre</small>
+                    </div>
+                    <div class="card-body">
+                        <form asp-action="Login" method="post">
+                            @Html.AntiForgeryToken()
+
+                            <div asp-validation-summary="All" class="alert alert-danger py-2" 
+                                 style="display:@(ViewData.ModelState.ErrorCount > 0 ? "block" : "none")">
+                            </div>
+
+                            <div class="mb-3">
+                                <label asp-for="Correo" class="form-label"></label>
+                                <input asp-for="Correo" class="form-control" />
+                                <span asp-validation-for="Correo" class="text-danger small"></span>
+                            </div>
+
+                            <div class="mb-3">
+                                <label asp-for="Contrasena" class="form-label"></label>
+                                <input asp-for="Contrasena" class="form-control" type="password" />
+                                <span asp-validation-for="Contrasena" class="text-danger small"></span>
+                            </div>
+
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-dark">Ingresar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+</body>
+</html>

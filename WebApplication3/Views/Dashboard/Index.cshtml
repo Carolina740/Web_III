@@ -1,0 +1,150 @@
+@{
+    ViewData["Title"] = "Dashboard";
+    var rol = ViewBag.Rol as string;
+    var nombre = Context.Session.GetString("UsuarioNombre");
+}
+
+<h5>Bienvenido, @nombre</h5>
+<p class="text-muted">Sistema de Gestión de Biblioteca - UPV Sede Sucre</p>
+<hr />
+
+@if (rol == "Administrador")
+{
+    <div class="row g-3 mb-4">
+        <div class="col-md-3">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h4>@ViewBag.TotalLibros</h4>
+                    <p class="mb-0 text-muted">Libros</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h4>@ViewBag.TotalUsuarios</h4>
+                    <p class="mb-0 text-muted">Usuarios</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h4>@ViewBag.PrestamosActivos</h4>
+                    <p class="mb-0 text-muted">Préstamos activos</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h4>@ViewBag.PrestamosVencidos</h4>
+                    <p class="mb-0 text-muted">Préstamos vencidos</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-3">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h6>Libros</h6>
+                    <p class="text-muted small">Gestionar el catálogo de libros</p>
+                    <a asp-controller="Libros" asp-action="Index" class="btn btn-sm btn-outline-dark">Ir a libros</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h6>Usuarios</h6>
+                    <p class="text-muted small">Administrar usuarios del sistema</p>
+                    <a asp-controller="Usuarios" asp-action="Index" class="btn btn-sm btn-outline-dark">Ir a usuarios</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h6>Préstamos</h6>
+                    <p class="text-muted small">Registrar y controlar préstamos</p>
+                    <a asp-controller="Prestamos" asp-action="Index" class="btn btn-sm btn-outline-dark">Ir a préstamos</a>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+else if (rol == "Bibliotecario")
+{
+    <div class="row g-3 mb-4">
+        <div class="col-md-4">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h4>@ViewBag.TotalLibros</h4>
+                    <p class="mb-0 text-muted">Libros</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h4>@ViewBag.PrestamosActivos</h4>
+                    <p class="mb-0 text-muted">Préstamos activos</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h4>@ViewBag.PrestamosVencidos</h4>
+                    <p class="mb-0 text-muted">Vencidos</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-3">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h6>Libros</h6>
+                    <p class="text-muted small">Ver y gestionar el catálogo</p>
+                    <a asp-controller="Libros" asp-action="Index" class="btn btn-sm btn-outline-dark">Ir a libros</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h6>Préstamos</h6>
+                    <p class="text-muted small">Registrar y controlar préstamos</p>
+                    <a asp-controller="Prestamos" asp-action="Index" class="btn btn-sm btn-outline-dark">Ir a préstamos</a>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <div class="row g-3">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h6>Catálogo de libros</h6>
+                    <p class="text-muted small">Consulta los libros disponibles</p>
+                    <a asp-controller="Libros" asp-action="Catalogo" class="btn btn-sm btn-outline-dark">Ver catálogo</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h6>Mis préstamos</h6>
+                    <p class="text-muted small">Historial de tus préstamos</p>
+                    <a asp-controller="Prestamos" asp-action="MisPrestamos" class="btn btn-sm btn-outline-dark">Ver mis préstamos</a>
+                </div>
+            </div>
+        </div>
+    </div>
+}

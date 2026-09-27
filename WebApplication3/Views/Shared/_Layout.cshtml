@@ -1,0 +1,94 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Biblioteca UPV</title>
+    <script type="importmap"></script>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/WebApplication3.styles.css" asp-append-version="true" />
+</head>
+<body>
+    @{
+        var rol = Context.Session.GetString("UsuarioRol");
+        var nombre = Context.Session.GetString("UsuarioNombre");
+    }
+
+    <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand fw-semibold" asp-controller="Dashboard" asp-action="Index">
+                Biblioteca UPV Sucre
+            </a>
+            @if (rol != null)
+            {
+                <div class="d-flex align-items-center gap-3">
+                    <span class="text-white-50 small">@nombre (@rol)</span>
+                    <a asp-controller="Cuenta" asp-action="Logout" class="btn btn-sm btn-outline-light">Cerrar sesión</a>
+                </div>
+            }
+        </div>
+    </nav>
+
+    @if (rol != null)
+    {
+        <div class="container-fluid">
+            <div class="row">
+                <nav class="col-md-2 d-none d-md-block bg-light border-end py-3" style="min-height:calc(100vh - 56px);">
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-controller="Dashboard" asp-action="Index">Inicio</a>
+                        </li>
+
+                        @if (rol == "Administrador" || rol == "Bibliotecario")
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Libros" asp-action="Index">Libros</a>
+                            </li>
+                        }
+                        @if (rol == "Usuario")
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Libros" asp-action="Catalogo">Catálogo</a>
+                            </li>
+                        }
+                        @if (rol == "Administrador")
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Usuarios" asp-action="Index">Usuarios</a>
+                            </li>
+                        }
+                        @if (rol == "Administrador" || rol == "Bibliotecario")
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Prestamos" asp-action="Index">Préstamos</a>
+                            </li>
+                        }
+                        @if (rol == "Usuario")
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Prestamos" asp-action="MisPrestamos">Mis préstamos</a>
+                            </li>
+                        }
+                    </ul>
+                </nav>
+
+                <main class="col-md-10 py-4 px-4">
+                    @RenderBody()
+                </main>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="container">
+            @RenderBody()
+        </div>
+    }
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

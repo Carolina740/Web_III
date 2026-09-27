@@ -1,0 +1,47 @@
+@model WebApplication3.Models.Prestamo
+@{
+    ViewData["Title"] = "Nuevo préstamo";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card shadow-sm">
+            <div class="card-header" style="background-color:#1a3a5c; color:white;">
+                <h5 class="mb-0">Registrar préstamo</h5>
+            </div>
+            <div class="card-body">
+                <form asp-action="Crear" method="post">
+                    @Html.AntiForgeryToken()
+                    <div class="mb-3">
+                        <label asp-for="UsuarioId" class="form-label">Usuario</label>
+                        <select asp-for="UsuarioId" class="form-select" asp-items="ViewBag.Usuarios">
+                            <option value="">-- Seleccionar usuario --</option>
+                        </select>
+                        <span asp-validation-for="UsuarioId" class="text-danger small"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="LibroId" class="form-label">Libro</label>
+                        <select asp-for="LibroId" class="form-select" asp-items="ViewBag.Libros">
+                            <option value="">-- Seleccionar libro --</option>
+                        </select>
+                        <span asp-validation-for="LibroId" class="text-danger small"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="FechaLimite" class="form-label"></label>
+                        <input asp-for="FechaLimite" class="form-control" type="date"
+                               value="@DateTime.Now.AddDays(14).ToString("yyyy-MM-dd")" />
+                        <span asp-validation-for="FechaLimite" class="text-danger small"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="Observaciones" class="form-label"></label>
+                        <textarea asp-for="Observaciones" class="form-control" rows="2"></textarea>
+                    </div>
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="btn btn-primary">Registrar</button>
+                        <a asp-action="Index" class="btn btn-outline-secondary">Cancelar</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

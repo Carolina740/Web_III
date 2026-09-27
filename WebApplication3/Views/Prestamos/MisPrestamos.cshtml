@@ -1,0 +1,43 @@
+@model IEnumerable<WebApplication3.Models.Prestamo>
+@{
+    ViewData["Title"] = "Mis préstamos";
+}
+
+<h4 class="mb-3">Mis préstamos</h4>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-info">No tienes préstamos registrados.</div>
+}
+else
+{
+    <div class="table-responsive">
+        <table class="table table-hover table-bordered">
+            <thead class="table-dark">
+                <tr>
+                    <th>Libro</th>
+                    <th>Fecha préstamo</th>
+                    <th>Fecha límite</th>
+                    <th>Devolución</th>
+                    <th>Estado</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var p in Model)
+                {
+                    <tr>
+                        <td>@p.Libro?.Titulo</td>
+                        <td>@p.FechaPrestamo.ToString("dd/MM/yyyy")</td>
+                        <td>@p.FechaLimite.ToString("dd/MM/yyyy")</td>
+                        <td>@(p.FechaDevolucion.HasValue ? p.FechaDevolucion.Value.ToString("dd/MM/yyyy") : "-")</td>
+                        <td>
+                            <span class="badge @(p.Estado == "Activo" ? "bg-success" : p.Estado == "Vencido" ? "bg-danger" : "bg-secondary")">
+                                @p.Estado
+                            </span>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
